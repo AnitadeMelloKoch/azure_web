@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'RoutineChangeDetector.apps.RoutinechangedetectorConfig',
+    'sql_server.pyodbc',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,12 +77,16 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rc_user_db',
-        'USER': 'rc_admin',
-        'PASSWORD': 'rc97admin#',
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'rc_userDB',
+        'USER': 'sqlserveradmin@routinechangedetectorsql',
+        'PASSWORD': 'RCDA97nk#',
+        'HOST': 'routinechangedetectorsql.database.windows.net',
+        'PORT': '1433',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+            'encrypt': True,
+        }
     }
 }
 
