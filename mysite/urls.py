@@ -20,6 +20,6 @@ router = DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('RoutineChangeDetector.urls')),
-    path('api/', include('api.urls')),
+    path('rdc-api/', include('RoutineChangeDetector.urls')),
+    # path('api/', include('api.urls')),
 ]
