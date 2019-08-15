@@ -47,5 +47,5 @@ def user_data_list(request):
         # return HttpResponse(request)
         # data = JSONParser().parse(request)
         # print(data)
-        moredata = json.dumps({'return': True})
+        moredata = {ret: data.body}
         return Response(moredata, status=status.HTTP_200_OK)
