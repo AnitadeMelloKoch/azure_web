@@ -46,8 +46,9 @@ def user_data_list(request):
         print(request.data)
         print(type(request.data))
         print(request.data["network"])
-        if request.data["network"] == "wifi":
-            return Response(serializer.data, status=status.HTTP_200_OK)
+        serializer = RecieveDataSerialiser(data=request.data)
+        if serializer.is_valid() :
+            return Response(request.data["network"], status=status.HTTP_200_OK)
         else: 
             return Response(serializer.data, status=status.HTTP_501_NOT_IMPLEMENTED)
         # serializer = RecieveDataSerialiser(data=request.data)
