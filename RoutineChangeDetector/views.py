@@ -44,4 +44,6 @@ def user_data_list(request):
 
     elif request.method == 'POST':
         data = request.data
-        return Response(data, status=status.HTTP_200_OK)
+        js = json.loads(data)
+        network = js["network"]
+        return Response(network, status=status.HTTP_200_OK)
