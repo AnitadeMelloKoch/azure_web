@@ -45,7 +45,7 @@ def user_data_list(request):
     elif request.method == 'POST':
         print(request.data)
         print(type(request.data))
-        print(request.data["network"])
+        # print(request.data["network"])
         serializer = RecieveDataSerialiser(data=request.data)
         if serializer.is_valid() :
             return Response(request.data["network"], status=status.HTTP_200_OK)
