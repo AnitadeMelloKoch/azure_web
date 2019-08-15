@@ -1,6 +1,8 @@
 from .models import UserData, UserRoutine
 from rest_framework import serializers
 
+from .commModels import RecieveData
+
 class UserDataSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserData
@@ -11,5 +13,7 @@ class UserRoutineSerializer(serializers.HyperlinkedModelSerializer):
         model = UserRoutine
         fields = '__all__'
 
-class DataRecieveSerialiser(serializers.Serializer):
-    dictionary = serializers.DictField
+class RecieveDataSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = RecieveData
+        fields = '__all__'

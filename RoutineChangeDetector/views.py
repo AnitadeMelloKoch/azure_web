@@ -26,7 +26,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import UserData, UserRoutine
-from .serializers import UserDataSerializer, UserRoutineSerializer, DataRecieveSerialiser
+from .serializers import UserDataSerializer, UserRoutineSerializer, RecieveDataSerialiser
 
 import json
 
@@ -43,7 +43,15 @@ def user_data_list(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        data = request.data
-        serializer = DataRecieveSerialiser(data=data)
-        network = serializer.dictionary["network"]
-        return Response(network, status=status.HTTP_200_OK)
+        print(request.data)
+        print(type(request.data))
+        print(request.data["network"])
+        if request.data["network"] == "wifi":
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else: 
+            return Response(serializer.data, status=status.HTTP_501_NOT_IMPLEMENTED)
+        # serializer = RecieveDataSerialiser(data=request.data)
+        # if serializer.is_valid() :
+        #     print(serializer)
+        #     return Response(serializer.data, status=status.HTTP_200_OK)
+       
