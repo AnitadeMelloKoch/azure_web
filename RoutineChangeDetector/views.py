@@ -28,6 +28,8 @@ from rest_framework.response import Response
 from .models import UserData, UserRoutine
 from .serializers import UserDataSerializer, UserRoutineSerializer
 
+import json
+
 @api_view(['GET', 'POST'])
 def user_data_list(request):
     """
@@ -45,4 +47,5 @@ def user_data_list(request):
         # return HttpResponse(request)
         # data = JSONParser().parse(request)
         # print(data)
-        return Response(data, status=status.HTTP_200_OK)
+        moredata = json.dumps({'return': True})
+        return Response(moredata, status=status.HTTP_200_OK)
