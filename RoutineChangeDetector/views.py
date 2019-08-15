@@ -44,8 +44,4 @@ def user_data_list(request):
 
     elif request.method == 'POST':
         data = request.data
-        # return HttpResponse(request)
-        # data = JSONParser().parse(request)
-        # print(data)
-        moredata = {ret: data.body}
-        return Response(moredata, status=status.HTTP_200_OK)
+        return Response(data, status=status.HTTP_200_OK)
