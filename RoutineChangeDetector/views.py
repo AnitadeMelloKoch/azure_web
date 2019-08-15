@@ -43,4 +43,4 @@ def user_data_list(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
         print(data)
-        return JsonResponse(serializer.errors, status=400)
+        return JsonResponse(data, status=201)
