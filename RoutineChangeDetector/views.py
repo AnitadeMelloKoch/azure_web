@@ -28,6 +28,8 @@ from rest_framework.parsers import JSONParser
 from .models import UserData, UserRoutine
 from .serializers import UserDataSerializer, UserRoutineSerializer
 
+import json
+
 @csrf_exempt
 def user_data_list(request):
     """
@@ -44,4 +46,5 @@ def user_data_list(request):
         # return HttpResponse(request)
         # data = JSONParser().parse(request)
         # print(data)
-        return JsonResponse(data, status=201)
+        strg = json.dumps(request)
+        return HttpResponse(strg, status=201)
