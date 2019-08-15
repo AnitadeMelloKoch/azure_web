@@ -22,15 +22,13 @@
 #     queryset = UserData.objects.all()
 #     serializer_class = UserDataSerializer
 
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .models import UserData, UserRoutine
 from .serializers import UserDataSerializer, UserRoutineSerializer
 
-import json
-
-@csrf_exempt
+@api_view(['GET', 'POST'])
 def user_data_list(request):
     """
     GET: List all UserData entries.
@@ -40,11 +38,11 @@ def user_data_list(request):
     if request.method == 'GET':
         user_data = UserData.objects.all()
         serializer = UserDataSerializer(user_data, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
-    if request.method == 'POST':
+    elif request.method == 'POST':
+        data = request.data
         # return HttpResponse(request)
         # data = JSONParser().parse(request)
         # print(data)
-        strg = json.dumps(request)
-        return HttpResponse(strg, status=201)
+        return Response(data, status=status.HTTP_200_OK)
