@@ -10,3 +10,6 @@ class UserRoutineSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserRoutine
         fields = '__all__'
+
+class DataRecieveSerialiser(serializers.Serializer):
+    dictionary = serializers.DictField

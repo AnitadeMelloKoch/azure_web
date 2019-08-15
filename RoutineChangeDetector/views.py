@@ -26,7 +26,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import UserData, UserRoutine
-from .serializers import UserDataSerializer, UserRoutineSerializer
+from .serializers import UserDataSerializer, UserRoutineSerializer, DataRecieveSerialiser
 
 import json
 
@@ -44,6 +44,6 @@ def user_data_list(request):
 
     elif request.method == 'POST':
         data = request.data
-        js = json.loads(data)
-        network = js["network"]
+        serializer = DataRecieveSerialiser(data=data)
+        network = serializer.dictionary["network"]
         return Response(network, status=status.HTTP_200_OK)
