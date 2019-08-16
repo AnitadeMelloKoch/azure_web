@@ -1,4 +1,4 @@
-from django.db import models
+# from django.db import models
 
-class RecieveData(models.Model):
-    network = models.TextField
+# class RecieveData(models.Model):
+#     dictionary = models.DictWrapper()

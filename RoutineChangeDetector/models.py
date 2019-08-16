@@ -8,7 +8,7 @@ class UserData(models.Model):
     # * Record ID Fields
     id = models.BigAutoField(primary_key=True)
     uuid = models.CharField(max_length=100, editable=False)
-    timestamp = models.PositiveIntegerField(editable=False)
+    timestamp = models.BigIntegerField(editable=False)
 
 
 
@@ -296,7 +296,6 @@ class UserData(models.Model):
                         self.raw_acc_magnitude_stats_mean + '\t' + \
                         self.proc_gyro_magnitude_stats_mean
         return returnText
-
 
 class UserRoutine(models.Model):
     # * IDs
