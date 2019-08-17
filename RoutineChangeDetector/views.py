@@ -5,6 +5,7 @@ from .models import UserData, UserRoutine
 from .serializers import UserDataSerializer, UserRoutineSerializer #, RecieveDataSerialiser
 
 import json
+from .locationMath import get_location_data, get_quick_location_data
 
 @api_view(['GET', 'POST'])
 def user_data_list(request):
@@ -186,23 +187,31 @@ def user_data_list(request):
         model.watch_heading_entropy_8bins = 0
 
         # * Location Fields
-        model.location_num_valid_updates = 0
-        model.location_log_latitude_range = 0
-        model.location_log_longitude_range = 0
-        model.location_min_altitude = 0
-        model.location_max_altitude = 0
-        model.location_min_speed = 0
-        model.location_max_speed = 0
-        model.location_best_horizontal_accuracy = 0
-        model.location_best_vertical_accuracy = 0
-        model.location_diameter = 0
-        model.location_log_diameter = 0
-        model.location_quick_features_std_lat = 0
-        model.location_quick_features_std_long = 0
-        model.location_quick_features_lat_change = 0
-        model.location_quick_features_long_change = 0
-        model.location_quick_features_mean_abs_lat_deriv = 0
-        model.location_quick_features_mean_abs_long_deriv = 0
+
+        num_updates, log_lat_range, log_long_range, \
+            min_alt, max_alt, min_spd, max_spd, best_horiz_acc, \
+            best_vert_acc, diameter, log_diameter = get_location_data(location)
+
+        std_lat, std_long, lat_change, long_change, \
+            mean_abs_lat_deriv, mean_abs_long_deriv = get_quick_location_data(location)
+
+        model.location_num_valid_updates = num_updates
+        model.location_log_latitude_range = log_lat_range
+        model.location_log_longitude_range = log_long_range
+        model.location_min_altitude = min_alt
+        model.location_max_altitude = max_alt
+        model.location_min_speed = min_spd
+        model.location_max_speed = max_spd
+        model.location_best_horizontal_accuracy = best_horiz_acc
+        model.location_best_vertical_accuracy = best_vert_acc
+        model.location_diameter = diameter
+        model.location_log_diameter = log_diameter
+        model.location_quick_features_std_lat = std_lat
+        model.location_quick_features_std_long = std_long
+        model.location_quick_features_lat_change = lat_change
+        model.location_quick_features_long_change = long_change
+        model.location_quick_features_mean_abs_lat_deriv = mean_abs_lat_deriv
+        model.location_quick_features_mean_abs_long_deriv = mean_abs_long_deriv
 
         # * Audio Fields
         model.audio_naive_mfcc0_mean = 0

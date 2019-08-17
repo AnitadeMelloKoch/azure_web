@@ -12,8 +12,3 @@ class UserRoutineSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserRoutine
         fields = '__all__'
-
-# class RecieveDataSerialiser(serializers.ModelSerializer):
-#     class Meta:
-#         model = RecieveData
-#         fields = '__all__'
