@@ -64,8 +64,8 @@ def valueEntropy(x, y, z):
     total = np.sum(hist)
     H = 0
     for x in range(len(hist)):
-        H = H - (hist[x]/total)*np.log((hist[x]/total))
-
+        if not hist[x] == 0: 
+            H = H - (hist[x]/total)*np.log((hist[x]/total))
     return H
 
 # working
@@ -74,7 +74,8 @@ def timeEntropy(x, y, z):
     total = np.sum(mag)
     S = 0
     for x in range(len(mag)):
-        S = S - (mag[x]/total)*np.log(mag[x]/total)
+        if not mag[x] == 0: 
+            S = S - (mag[x]/total)*np.log(mag[x]/total)
 
     return S
 
@@ -85,19 +86,17 @@ def spectral_entropy(x, y, z):
     total = np.sum(PSD)
     S = 0
     for x in range(len(PSD)):
-        S = S - (PSD[x]/total)*np.log(PSD[x]/total)
+        if not PSD[x] == 0:
+            S = S - (PSD[x]/total)*np.log(PSD[x]/total)
     return S
 
 # not working
 def energyband0(x, y, z):
     mag = np.sqrt(np.add(np.add(np.square(x), np.square(y)), np.square(z)))
     f, PSD = scipy.signal.periodogram(mag, 40)
-    #print(f)
-    #print(PSD)
     energy = 0
     for x in range(len(PSD)):
         if(f[x] >= 0 and f[x] <= 0.5):
-            print(PSD[x])
             energy = energy + PSD[x]
     return np.log(energy)
 
@@ -165,7 +164,7 @@ def autocorr(x, y, z, timesteps):
         else:
             maxVal = np.argmax(autocorr[index:])
             found = True
-    period = timesteps[index:][maxVal] - timesteps[0]
+    period = (timesteps[index:][maxVal] - timesteps[0]) / 1000 # To convert to seconds from milliseconds
     return (period),(autocorr[index:][maxVal])
 
 # working
@@ -181,10 +180,9 @@ def cos_similarity_0(x, y, z, timesteps):
         x1 = int(np.random.randint(low = 0, high = len(x)))
         x2 = int(np.random.randint(low = 0, high = len(x)))
         time = abs(timesteps[x1] - timesteps[x2])
-        if(time >= 0 and time < 0.5):
+        if(time >= 0 and time < 500):
             tot = tot + 1
             sim = sim + scipy.spatial.distance.cosine([x[x1], y[x1], z[x1]],[x[x2], y[x2], z[x2]])
-    print(tot)
     return 1 - sim/tot
 
 def cos_similarity_1(x, y, z, timesteps):
@@ -194,10 +192,9 @@ def cos_similarity_1(x, y, z, timesteps):
         x1 = int(np.random.randint(low = 0, high = len(x)))
         x2 = int(np.random.randint(low = 0, high = len(x)))
         time = abs(timesteps[x1] - timesteps[x2])
-        if(time >= 0.5 and time < 1):
+        if(time >= 500 and time < 1000):
             tot = tot + 1
             sim = sim + scipy.spatial.distance.cosine([x[x1], y[x1], z[x1]],[x[x2], y[x2], z[x2]])
-    print(tot)
     return 1 - sim/tot
 
 def cos_similarity_2(x, y, z, timesteps):
@@ -207,10 +204,9 @@ def cos_similarity_2(x, y, z, timesteps):
         x1 = int(np.random.randint(low = 0, high = len(x)))
         x2 = int(np.random.randint(low = 0, high = len(x)))
         time = abs(timesteps[x1] - timesteps[x2])
-        if(time >= 1 and time < 5):
+        if(time >= 1000 and time < 5000):
             tot = tot + 1
             sim = sim + scipy.spatial.distance.cosine([x[x1], y[x1], z[x1]],[x[x2], y[x2], z[x2]])
-    print(tot)
     return 1 - sim/tot
 
 def cos_similarity_3(x, y, z, timesteps):
@@ -220,10 +216,9 @@ def cos_similarity_3(x, y, z, timesteps):
         x1 = int(np.random.randint(low = 0, high = len(x)))
         x2 = int(np.random.randint(low = 0, high = len(x)))
         time = abs(timesteps[x1] - timesteps[x2])
-        if(time >= 5 and time < 10):
+        if(time >= 5000 and time < 10000):
             tot = tot + 1
             sim = sim + scipy.spatial.distance.cosine([x[x1], y[x1], z[x1]],[x[x2], y[x2], z[x2]])
-    print(tot)
     return 1 - sim/tot
 
 def cos_similarity_4(x, y, z, timesteps):
@@ -233,18 +228,7 @@ def cos_similarity_4(x, y, z, timesteps):
         x1 = int(np.random.randint(low = 0, high = len(x)))
         x2 = int(np.random.randint(low = 0, high = len(x)))
         time = abs(timesteps[x1] - timesteps[x2])
-        if(time < 10):
+        if(time < 10000):
             tot = tot + 1
             sim = sim + scipy.spatial.distance.cosine([x[x1], y[x1], z[x1]],[x[x2], y[x2], z[x2]])
-    print(tot)
     return 1 - sim/tot
-
-
-
-data = np.loadtxt("/mnt/c/Users/Anita/Documents/4thyear/labproject/00EABED2-271D-49D8-B599-1D4A09240601/1444079161.m_raw_magnet.dat")
-timestamps = data[:, 0]
-x = data[:, 1]
-y = data[:, 2]
-z = data[:, 3]
-
-print(autocorr(x, y, z, timestamps))
