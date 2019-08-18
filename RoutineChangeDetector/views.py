@@ -7,6 +7,7 @@ from .serializers import UserDataSerializer, UserRoutineSerializer #, RecieveDat
 import json
 from .locationMath import get_location_data, get_quick_location_data
 from .statistics import *
+import numpy
 
 @api_view(['GET', 'POST'])
 def user_data_list(request):
@@ -22,7 +23,7 @@ def user_data_list(request):
 
     elif request.method == 'POST':
         acceleration = request.data["acceleration"]
-        audio = request.data["audio"]
+        mfcc = request.data["mfcc"]
         gyroscope = request.data["gyroscope"]
         location = request.data["location"]
         magnetometer = request.data["magnetometer"]
@@ -375,34 +376,35 @@ def user_data_list(request):
 
 
         # * Audio Fields
-        model.audio_naive_mfcc0_mean = 0
-        model.audio_naive_mfcc1_mean = 0
-        model.audio_naive_mfcc2_mean = 0
-        model.audio_naive_mfcc3_mean = 0
-        model.audio_naive_mfcc4_mean = 0
-        model.audio_naive_mfcc5_mean = 0
-        model.audio_naive_mfcc6_mean = 0
-        model.audio_naive_mfcc7_mean = 0
-        model.audio_naive_mfcc8_mean = 0
-        model.audio_naive_mfcc9_mean = 0
-        model.audio_naive_mfcc10_mean = 0
-        model.audio_naive_mfcc11_mean = 0
-        model.audio_naive_mfcc12_mean = 0
-        model.audio_naive_mfcc0_std = 0
-        model.audio_naive_mfcc1_std = 0
-        model.audio_naive_mfcc2_std = 0
-        model.audio_naive_mfcc3_std = 0
-        model.audio_naive_mfcc4_std = 0
-        model.audio_naive_mfcc5_std = 0
-        model.audio_naive_mfcc6_std = 0
-        model.audio_naive_mfcc7_std = 0
-        model.audio_naive_mfcc8_std = 0
-        model.audio_naive_mfcc9_std = 0
-        model.audio_naive_mfcc10_std = 0
-        model.audio_naive_mfcc11_std = 0
-        model.audio_naive_mfcc12_std = 0
-        model.audio_properties_max_abs_value = 0
-        model.audio_properties_normalization_multiplier = 0
+        print(mfcc)
+        model.audio_naive_mfcc0_mean = numpy.nanmean(mfcc["mfcc0"])
+        model.audio_naive_mfcc1_mean = numpy.nanmean(mfcc["mfcc1"])
+        model.audio_naive_mfcc2_mean = numpy.nanmean(mfcc["mfcc2"])
+        model.audio_naive_mfcc3_mean = numpy.nanmean(mfcc["mfcc3"])
+        model.audio_naive_mfcc4_mean = numpy.nanmean(mfcc["mfcc4"])
+        model.audio_naive_mfcc5_mean = numpy.nanmean(mfcc["mfcc5"])
+        model.audio_naive_mfcc6_mean = numpy.nanmean(mfcc["mfcc6"])
+        model.audio_naive_mfcc7_mean = numpy.nanmean(mfcc["mfcc7"])
+        model.audio_naive_mfcc8_mean = numpy.nanmean(mfcc["mfcc8"])
+        model.audio_naive_mfcc9_mean = numpy.nanmean(mfcc["mfcc9"])
+        model.audio_naive_mfcc10_mean = numpy.nanmean(mfcc["mfcc10"])
+        model.audio_naive_mfcc11_mean = numpy.nanmean(mfcc["mfcc11"])
+        model.audio_naive_mfcc12_mean = numpy.nanmean(mfcc["mfcc12"])
+        model.audio_naive_mfcc0_std = numpy.nanstd(mfcc["mfcc0"])
+        model.audio_naive_mfcc1_std = numpy.nanstd(mfcc["mfcc1"])
+        model.audio_naive_mfcc2_std = numpy.nanstd(mfcc["mfcc2"])
+        model.audio_naive_mfcc3_std = numpy.nanstd(mfcc["mfcc3"])
+        model.audio_naive_mfcc4_std = numpy.nanstd(mfcc["mfcc4"])
+        model.audio_naive_mfcc5_std = numpy.nanstd(mfcc["mfcc5"])
+        model.audio_naive_mfcc6_std = numpy.nanstd(mfcc["mfcc6"])
+        model.audio_naive_mfcc7_std = numpy.nanstd(mfcc["mfcc7"])
+        model.audio_naive_mfcc8_std = numpy.nanstd(mfcc["mfcc8"])
+        model.audio_naive_mfcc9_std = numpy.nanstd(mfcc["mfcc9"])
+        model.audio_naive_mfcc10_std = numpy.nanstd(mfcc["mfcc10"])
+        model.audio_naive_mfcc11_std = numpy.nanstd(mfcc["mfcc11"])
+        model.audio_naive_mfcc12_std = numpy.nanstd(mfcc["mfcc12"])
+        model.audio_properties_max_abs_value = -mfcc["normalizationMult"]
+        model.audio_properties_normalization_multiplier = mfcc["normalizationMult"]
 
         # * App State
         if app_state == "ACTIVE":
@@ -491,7 +493,7 @@ def user_data_list(request):
         # * Done
         serializer = UserDataSerializer(model)
         if serializer.is_valid:
-            model.save()
+            # model.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
