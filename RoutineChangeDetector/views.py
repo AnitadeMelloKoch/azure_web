@@ -490,7 +490,7 @@ def user_data_list(request):
         elif hour >= 21 and hour < 3:
             model.discrete_time_of_day_between21and3 = True
 
-        # * Done
+        # * Done 
         serializer = UserDataSerializer(model)
         if serializer.is_valid:
             # model.save()
