@@ -1,6 +1,7 @@
 import math
 import numpy
 from geopy.distance import great_circle
+import sys
 #  Set of methods to get data from the location array
 
 def num_valid_updates(arr):
@@ -30,7 +31,11 @@ def get_location_data(arr):
     best_horiz_acc = min(acc_arr)
     best_vert_acc = min(alt_acc_arr)
     diameter = calcDiameter(lat_arr, long_arr)
-    log_diameter = math.log(diameter)
+    log_diameter = 0
+    if not diameter == 0:
+        log_diameter = math.log(diameter)
+    else:
+        log_diameter = math.log(sys.float_info.min)
 
     return (num_updates, log_lat_range, log_long_range, \
             min_alt, max_alt, min_spd, max_spd, best_horiz_acc, \

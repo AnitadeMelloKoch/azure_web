@@ -7,12 +7,14 @@ import argparse
 
 def predict(data, meta_dir, checkpoint_dir, validate):
     
-    x =  tf.compat.v1.placeholder("float", [None, 225], name="x")
-
-    with tf.Session() as sess:
+        x =  tf.compat.v1.placeholder("float", [None, 225], name="x")
         # initialize saver and load graph
+        print(meta_dir)
+        print(checkpoint_dir)
+
         saver = tf.compat.v1.train.import_meta_graph(meta_dir)
-        saver.restore(sess, tf.train.latest_checkpoint(checkpoint_dir))
+        sess = tf.Session()
+        saver.restore(sess, checkpoint_dir)
         graph = tf.compat.v1.get_default_graph()
 
         # load all weights and biases from previous graph
@@ -40,7 +42,7 @@ def predict(data, meta_dir, checkpoint_dir, validate):
         bias_out_loc = graph.get_tensor_by_name("weight_out_loc_bias:0")
         weight_out_phone = graph.get_tensor_by_name("weight_out_phone:0")
         bias_out_phone = graph.get_tensor_by_name("weight_out_phone_bias:0")
-        
+
         # initialize all layers
         layer_1 = tf.nn.sigmoid(tf.add(tf.matmul(x, weight_1), bias_1))
         layer_2 = tf.nn.sigmoid(tf.add(tf.matmul(layer_1, weight_2), bias_2))
