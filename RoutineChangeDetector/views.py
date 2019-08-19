@@ -6,15 +6,16 @@ from .serializers import UserDataSerializer, UserRoutineSerializer #, RecieveDat
 
 import json
 from .locationMath import get_location_data, get_quick_location_data
-from .statistics import *
+from .statistics import * 
 import numpy
+from .inference.inferenceMLP import predict
 
 @api_view(['GET', 'POST'])
 def user_data_list(request):
     """
     GET: List all UserData entries.
 
-    POST: Prints the posted data.
+    POST: returns the posted data after processing.
     """
     if request.method == 'GET':
         user_data = UserData.objects.all()
@@ -350,9 +351,10 @@ def user_data_list(request):
 
 
         # * Location Fields
-        num_updates, log_lat_range, log_long_range, \
-            min_alt, max_alt, min_spd, max_spd, best_horiz_acc, \
-            best_vert_acc, diameter, log_diameter = get_location_data(location)
+        if not len(location) == 0:
+            num_updates, log_lat_range, log_long_range, \
+                min_alt, max_alt, min_spd, max_spd, best_horiz_acc, \
+                best_vert_acc, diameter, log_diameter = get_location_data(location)
         std_lat, std_long, lat_change, long_change, \
             mean_abs_lat_deriv, mean_abs_long_deriv = get_quick_location_data(location)
         model.location_num_valid_updates = num_updates
@@ -369,14 +371,30 @@ def user_data_list(request):
         model.location_quick_features_std_lat = std_lat
         model.location_quick_features_std_long = std_long
         model.location_quick_features_lat_change = lat_change
-        model.location_quick_features_long_change = long_change
-        model.location_quick_features_mean_abs_lat_deriv = mean_abs_lat_deriv
-        model.location_quick_features_mean_abs_long_deriv = mean_abs_long_deriv
-
+            model.location_quick_features_long_change = long_change
+            model.location_quick_features_mean_abs_lat_deriv = mean_abs_lat_deriv
+            model.location_quick_features_mean_abs_long_deriv = mean_abs_long_deriv
+        else:
+            model.location_num_valid_updates = 0
+            model.location_log_latitude_range = 0
+            model.location_log_longitude_range = 0
+            model.location_min_altitude = 0
+            model.location_max_altitude = 0
+            model.location_min_speed = 0
+            model.location_max_speed = 0
+            model.location_best_horizontal_accuracy = 0
+            model.location_best_vertical_accuracy = 0
+            model.location_diameter = 0
+            model.location_log_diameter = 0
+            model.location_quick_features_std_lat = 0
+            model.location_quick_features_std_long = 0
+            model.location_quick_features_lat_change = 0
+            model.location_quick_features_long_change = 0
+            model.location_quick_features_mean_abs_lat_deriv = 0
+            model.location_quick_features_mean_abs_long_deriv = 0
 
 
         # * Audio Fields
-        print(mfcc)
         model.audio_naive_mfcc0_mean = numpy.nanmean(mfcc["mfcc0"])
         model.audio_naive_mfcc1_mean = numpy.nanmean(mfcc["mfcc1"])
         model.audio_naive_mfcc2_mean = numpy.nanmean(mfcc["mfcc2"])
@@ -494,6 +512,11 @@ def user_data_list(request):
         serializer = UserDataSerializer(model)
         if serializer.is_valid:
             # model.save()
+            values_list = list(serializer.data.values())[3:]
+            # print(values_list)
+            result = predict([values_list], 'D:\\nicho\\Documents\\RoutineChangeDetector\\azure_web\\RoutineChangeDetector\\inference\\model-1000.meta', \
+                'D:\\nicho\\Documents\\RoutineChangeDetector\\azure_web\\RoutineChangeDetector\\inference', False)
+            # print(result)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

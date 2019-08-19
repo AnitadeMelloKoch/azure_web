@@ -1,0 +1,2 @@
+model_checkpoint_path: "D:\\nicho\\Documents\\RoutineChangeDetector\\ml\\models\\3000epochs/chkpnt/model-1000"
+all_model_checkpoint_paths: "D:\\nicho\\Documents\\RoutineChangeDetector\\ml\\models\\3000epochs/chkpnt/model-1000"
