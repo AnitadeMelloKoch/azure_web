@@ -778,11 +778,11 @@ class UserData(models.Model):
 
     def __str__(self):
         returnText = ''
-        returnText += self.id + '\t' + \
+        returnText += str(self.id) + '\t' + \
                         self.uuid + '\t' + \
-                        self.timestamp + '\t' + \
-                        self.raw_acc_magnitude_stats_mean + '\t' + \
-                        self.proc_gyro_magnitude_stats_mean
+                        str(self.timestamp) + '\t' + \
+                        str(self.raw_acc_magnitude_stats_mean) + '\t' + \
+                        str(self.proc_gyro_magnitude_stats_mean)
         return returnText
 
 class UserRoutine(models.Model):
@@ -850,6 +850,6 @@ class UserRoutine(models.Model):
 
     # ! Class Functions
     def __str__(self):
-        return self.id + '\t' + \
+        return str(self.id) + '\t' + \
                 self.uuid + '\t' + \
-                self.data_record + 't'
+                str(self.data_record) + 't'

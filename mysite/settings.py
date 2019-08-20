@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'sc_userDB',
+        'NAME': 'rc_userDB',
         'USER': 'sqlserveradmin@routinechangedetectorsql',
         'PASSWORD': 'RCDA97nk#',
         'HOST': 'routinechangedetectorsql.database.windows.net',
