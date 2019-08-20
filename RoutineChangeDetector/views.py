@@ -21,10 +21,10 @@ def user_data_list(request):
     if request.method == 'GET':
         user_data = UserData.objects.all()
         serializer = UserDataSerializer(user_data, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == 'POST':     
-        return Response({}, status=status.HTTP_202_ACCEPTED)   
+        # return Response({}, status=status.HTTP_202_ACCEPTED)   
         values_matrix = []
         for data in request.data:
             model = UserData()
