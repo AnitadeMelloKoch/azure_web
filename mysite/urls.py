@@ -18,8 +18,11 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 router = DefaultRouter() 
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('rcd-api/', include('RoutineChangeDetector.urls')),
     # path('api/', include('api.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
