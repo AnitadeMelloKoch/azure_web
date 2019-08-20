@@ -295,7 +295,7 @@ class UserData(models.Model):
     # def __init__(self):
     #     super(UserData, self).__init__()
     
-    def __init__(self, dataDict):
+    def setValues(self, dataDict):
         super(UserData, self).__init__()
         
         acceleration = dataDict["acceleration"]

@@ -9,8 +9,7 @@ def predict(data, meta_dir, checkpoint_dir, validate):
     
         x =  tf.compat.v1.placeholder("float", [None, 225], name="x")
         # initialize saver and load graph
-        print(meta_dir)
-        print(checkpoint_dir)
+        print(data[0])
 
         saver = tf.compat.v1.train.import_meta_graph(meta_dir)
         sess = tf.Session()
@@ -66,10 +65,10 @@ def predict(data, meta_dir, checkpoint_dir, validate):
         action_2 = sess.run(predicted_action_2, feed_dict={x:data_in})
         loc = sess.run(predicted_loc, feed_dict={x:data_in})
         phone = sess.run(predicted_phone, feed_dict={x:data_in})
-        print(action_1)
-        print(action_2)
-        print(loc)
-        print(phone)
+        # print(action_1)
+        # print(action_2)
+        # print(loc)
+        # print(phone)
 
         output = np.concatenate((action_1, action_2, loc, phone), axis=1)
 

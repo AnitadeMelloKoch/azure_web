@@ -72,6 +72,9 @@ def get_quick_location_data(arr):
 def calcDeriv(arr, t_arr):
     derivs = []
     for i in range(len(arr)-1):
-        d = abs((arr[i+1] - arr[i])/((t_arr[i+1] - t_arr[i])/1000))
+        t_diff = t_arr[i+1] - t_arr[i]
+        if t_diff == 0:
+            return numpy.nan
+        d = abs((arr[i+1] - arr[i])/((t_diff)/1000))
         derivs.append(d)
     return numpy.average(derivs)
