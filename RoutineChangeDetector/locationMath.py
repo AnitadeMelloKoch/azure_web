@@ -74,7 +74,7 @@ def calcDeriv(arr, t_arr):
     for i in range(len(arr)-1):
         t_diff = t_arr[i+1] - t_arr[i]
         if t_diff == 0:
-            return numpy.nan
+            return 0
         d = abs((arr[i+1] - arr[i])/((t_diff)/1000))
         derivs.append(d)
     return numpy.average(derivs)

@@ -17,209 +17,209 @@ class UserData(models.Model):
 
 
     # * Accelerometer Fields
-    raw_acc_magnitude_stats_mean = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_stats_std = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_stats_moment3 = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_stats_moment4 = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_stats_percentile25 = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_stats_percentile50 = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_stats_percentile75 = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_stats_value_entropy = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_stats_time_entropy = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_spectrum_log_energy_band0 = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_spectrum_log_energy_band1 = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_spectrum_log_energy_band2 = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_spectrum_log_energy_band3 = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_spectrum_log_energy_band4 = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_spectrum_spectral_entropy = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_autocorrelation_period = models.FloatField(null=True, blank=True)
-    raw_acc_magnitude_autocorrelation_normalized_ac = models.FloatField(null=True, blank=True)
-    raw_acc_3d_mean_x = models.FloatField(null=True, blank=True)
-    raw_acc_3d_mean_y = models.FloatField(null=True, blank=True)
-    raw_acc_3d_mean_z = models.FloatField(null=True, blank=True)
-    raw_acc_3d_std_x = models.FloatField(null=True, blank=True)
-    raw_acc_3d_std_y = models.FloatField(null=True, blank=True)
-    raw_acc_3d_std_z = models.FloatField(null=True, blank=True)
-    raw_acc_3d_ro_xy = models.FloatField(null=True, blank=True)
-    raw_acc_3d_ro_xz = models.FloatField(null=True, blank=True)
-    raw_acc_3d_ro_yz = models.FloatField(null=True, blank=True)
+    raw_acc_magnitude_stats_mean = models.FloatField(blank=True)
+    raw_acc_magnitude_stats_std = models.FloatField(blank=True)
+    raw_acc_magnitude_stats_moment3 = models.FloatField(blank=True)
+    raw_acc_magnitude_stats_moment4 = models.FloatField(blank=True)
+    raw_acc_magnitude_stats_percentile25 = models.FloatField(blank=True)
+    raw_acc_magnitude_stats_percentile50 = models.FloatField(blank=True)
+    raw_acc_magnitude_stats_percentile75 = models.FloatField(blank=True)
+    raw_acc_magnitude_stats_value_entropy = models.FloatField(blank=True)
+    raw_acc_magnitude_stats_time_entropy = models.FloatField(blank=True)
+    raw_acc_magnitude_spectrum_log_energy_band0 = models.FloatField(blank=True)
+    raw_acc_magnitude_spectrum_log_energy_band1 = models.FloatField(blank=True)
+    raw_acc_magnitude_spectrum_log_energy_band2 = models.FloatField(blank=True)
+    raw_acc_magnitude_spectrum_log_energy_band3 = models.FloatField(blank=True)
+    raw_acc_magnitude_spectrum_log_energy_band4 = models.FloatField(blank=True)
+    raw_acc_magnitude_spectrum_spectral_entropy = models.FloatField(blank=True)
+    raw_acc_magnitude_autocorrelation_period = models.FloatField(blank=True)
+    raw_acc_magnitude_autocorrelation_normalized_ac = models.FloatField(blank=True)
+    raw_acc_3d_mean_x = models.FloatField(blank=True)
+    raw_acc_3d_mean_y = models.FloatField(blank=True)
+    raw_acc_3d_mean_z = models.FloatField(blank=True)
+    raw_acc_3d_std_x = models.FloatField(blank=True)
+    raw_acc_3d_std_y = models.FloatField(blank=True)
+    raw_acc_3d_std_z = models.FloatField(blank=True)
+    raw_acc_3d_ro_xy = models.FloatField(blank=True)
+    raw_acc_3d_ro_xz = models.FloatField(blank=True)
+    raw_acc_3d_ro_yz = models.FloatField(blank=True)
 
 
 
     # * Gyroscope Fields
-    proc_gyro_magnitude_stats_mean = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_stats_std = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_stats_moment3 = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_stats_moment4 = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_stats_percentile25 = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_stats_percentile50 = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_stats_percentile75 = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_stats_value_entropy = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_stats_time_entropy = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_spectrum_log_energy_band0 = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_spectrum_log_energy_band1 = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_spectrum_log_energy_band2 = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_spectrum_log_energy_band3 = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_spectrum_log_energy_band4 = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_spectrum_spectral_entropy = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_autocorrelation_period = models.FloatField(null=True, blank=True)
-    proc_gyro_magnitude_autocorrelation_normalized_ac = models.FloatField(null=True, blank=True)
-    proc_gyro_3d_mean_x = models.FloatField(null=True, blank=True)
-    proc_gyro_3d_mean_y = models.FloatField(null=True, blank=True)
-    proc_gyro_3d_mean_z = models.FloatField(null=True, blank=True)
-    proc_gyro_3d_std_x = models.FloatField(null=True, blank=True)
-    proc_gyro_3d_std_y = models.FloatField(null=True, blank=True)
-    proc_gyro_3d_std_z = models.FloatField(null=True, blank=True)
-    proc_gyro_3d_ro_xy = models.FloatField(null=True, blank=True)
-    proc_gyro_3d_ro_xz = models.FloatField(null=True, blank=True)
-    proc_gyro_3d_ro_yz = models.FloatField(null=True, blank=True)
+    proc_gyro_magnitude_stats_mean = models.FloatField(blank=True)
+    proc_gyro_magnitude_stats_std = models.FloatField(blank=True)
+    proc_gyro_magnitude_stats_moment3 = models.FloatField(blank=True)
+    proc_gyro_magnitude_stats_moment4 = models.FloatField(blank=True)
+    proc_gyro_magnitude_stats_percentile25 = models.FloatField(blank=True)
+    proc_gyro_magnitude_stats_percentile50 = models.FloatField(blank=True)
+    proc_gyro_magnitude_stats_percentile75 = models.FloatField(blank=True)
+    proc_gyro_magnitude_stats_value_entropy = models.FloatField(blank=True)
+    proc_gyro_magnitude_stats_time_entropy = models.FloatField(blank=True)
+    proc_gyro_magnitude_spectrum_log_energy_band0 = models.FloatField(blank=True)
+    proc_gyro_magnitude_spectrum_log_energy_band1 = models.FloatField(blank=True)
+    proc_gyro_magnitude_spectrum_log_energy_band2 = models.FloatField(blank=True)
+    proc_gyro_magnitude_spectrum_log_energy_band3 = models.FloatField(blank=True)
+    proc_gyro_magnitude_spectrum_log_energy_band4 = models.FloatField(blank=True)
+    proc_gyro_magnitude_spectrum_spectral_entropy = models.FloatField(blank=True)
+    proc_gyro_magnitude_autocorrelation_period = models.FloatField(blank=True)
+    proc_gyro_magnitude_autocorrelation_normalized_ac = models.FloatField(blank=True)
+    proc_gyro_3d_mean_x = models.FloatField(blank=True)
+    proc_gyro_3d_mean_y = models.FloatField(blank=True)
+    proc_gyro_3d_mean_z = models.FloatField(blank=True)
+    proc_gyro_3d_std_x = models.FloatField(blank=True)
+    proc_gyro_3d_std_y = models.FloatField(blank=True)
+    proc_gyro_3d_std_z = models.FloatField(blank=True)
+    proc_gyro_3d_ro_xy = models.FloatField(blank=True)
+    proc_gyro_3d_ro_xz = models.FloatField(blank=True)
+    proc_gyro_3d_ro_yz = models.FloatField(blank=True)
 
 
 
     # * Magnetometer Fields
-    raw_magnet_magnitude_stats_mean = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_stats_std = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_stats_moment3 = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_stats_moment4 = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_stats_percentile25 = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_stats_percentile50 = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_stats_percentile75 = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_stats_value_entropy = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_stats_time_entropy = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_spectrum_log_energy_band0 = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_spectrum_log_energy_band1 = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_spectrum_log_energy_band2 = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_spectrum_log_energy_band3 = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_spectrum_log_energy_band4 = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_spectrum_spectral_entropy = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_autocorrelation_period = models.FloatField(null=True, blank=True)
-    raw_magnet_magnitude_autocorrelation_normalized_ac = models.FloatField(null=True, blank=True)
-    raw_magnet_3d_mean_x = models.FloatField(null=True, blank=True)
-    raw_magnet_3d_mean_y = models.FloatField(null=True, blank=True)
-    raw_magnet_3d_mean_z = models.FloatField(null=True, blank=True)
-    raw_magnet_3d_std_x = models.FloatField(null=True, blank=True)
-    raw_magnet_3d_std_y = models.FloatField(null=True, blank=True)
-    raw_magnet_3d_std_z = models.FloatField(null=True, blank=True)
-    raw_magnet_3d_ro_xy = models.FloatField(null=True, blank=True)
-    raw_magnet_3d_ro_xz = models.FloatField(null=True, blank=True)
-    raw_magnet_3d_ro_yz = models.FloatField(null=True, blank=True)
-    raw_magnet_avr_cosine_similarity_lag_range0 = models.FloatField(null=True, blank=True)
-    raw_magnet_avr_cosine_similarity_lag_range1 = models.FloatField(null=True, blank=True)
-    raw_magnet_avr_cosine_similarity_lag_range2 = models.FloatField(null=True, blank=True)
-    raw_magnet_avr_cosine_similarity_lag_range3 = models.FloatField(null=True, blank=True)
-    raw_magnet_avr_cosine_similarity_lag_range4 = models.FloatField(null=True, blank=True)
+    raw_magnet_magnitude_stats_mean = models.FloatField(blank=True)
+    raw_magnet_magnitude_stats_std = models.FloatField(blank=True)
+    raw_magnet_magnitude_stats_moment3 = models.FloatField(blank=True)
+    raw_magnet_magnitude_stats_moment4 = models.FloatField(blank=True)
+    raw_magnet_magnitude_stats_percentile25 = models.FloatField(blank=True)
+    raw_magnet_magnitude_stats_percentile50 = models.FloatField(blank=True)
+    raw_magnet_magnitude_stats_percentile75 = models.FloatField(blank=True)
+    raw_magnet_magnitude_stats_value_entropy = models.FloatField(blank=True)
+    raw_magnet_magnitude_stats_time_entropy = models.FloatField(blank=True)
+    raw_magnet_magnitude_spectrum_log_energy_band0 = models.FloatField(blank=True)
+    raw_magnet_magnitude_spectrum_log_energy_band1 = models.FloatField(blank=True)
+    raw_magnet_magnitude_spectrum_log_energy_band2 = models.FloatField(blank=True)
+    raw_magnet_magnitude_spectrum_log_energy_band3 = models.FloatField(blank=True)
+    raw_magnet_magnitude_spectrum_log_energy_band4 = models.FloatField(blank=True)
+    raw_magnet_magnitude_spectrum_spectral_entropy = models.FloatField(blank=True)
+    raw_magnet_magnitude_autocorrelation_period = models.FloatField(blank=True)
+    raw_magnet_magnitude_autocorrelation_normalized_ac = models.FloatField(blank=True)
+    raw_magnet_3d_mean_x = models.FloatField(blank=True)
+    raw_magnet_3d_mean_y = models.FloatField(blank=True)
+    raw_magnet_3d_mean_z = models.FloatField(blank=True)
+    raw_magnet_3d_std_x = models.FloatField(blank=True)
+    raw_magnet_3d_std_y = models.FloatField(blank=True)
+    raw_magnet_3d_std_z = models.FloatField(blank=True)
+    raw_magnet_3d_ro_xy = models.FloatField(blank=True)
+    raw_magnet_3d_ro_xz = models.FloatField(blank=True)
+    raw_magnet_3d_ro_yz = models.FloatField(blank=True)
+    raw_magnet_avr_cosine_similarity_lag_range0 = models.FloatField(blank=True)
+    raw_magnet_avr_cosine_similarity_lag_range1 = models.FloatField(blank=True)
+    raw_magnet_avr_cosine_similarity_lag_range2 = models.FloatField(blank=True)
+    raw_magnet_avr_cosine_similarity_lag_range3 = models.FloatField(blank=True)
+    raw_magnet_avr_cosine_similarity_lag_range4 = models.FloatField(blank=True)
 
 
 
     # * Watch Fields
-    watch_acc_magnitude_stats_mean = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_stats_std = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_stats_moment3 = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_stats_moment4 = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_stats_percentile25 = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_stats_percentile50 = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_stats_percentile75 = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_stats_value_entropy = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_stats_time_entropy = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_spectrum_log_energy_band0 = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_spectrum_log_energy_band1 = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_spectrum_log_energy_band2 = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_spectrum_log_energy_band3 = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_spectrum_log_energy_band4 = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_spectrum_spectral_entropy = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_autocorrelation_period = models.FloatField(null=True, blank=True)
-    watch_acc_magnitude_autocorrelation_normalized_ac = models.FloatField(null=True, blank=True)
-    watch_acc_3d_mean_x = models.FloatField(null=True, blank=True)
-    watch_acc_3d_mean_y = models.FloatField(null=True, blank=True)
-    watch_acc_3d_mean_z = models.FloatField(null=True, blank=True)
-    watch_acc_3d_std_x = models.FloatField(null=True, blank=True)
-    watch_acc_3d_std_y = models.FloatField(null=True, blank=True)
-    watch_acc_3d_std_z = models.FloatField(null=True, blank=True)
-    watch_acc_3d_ro_xy = models.FloatField(null=True, blank=True)
-    watch_acc_3d_ro_xz = models.FloatField(null=True, blank=True)
-    watch_acc_3d_ro_yz = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_x_log_energy_band0 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_x_log_energy_band1 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_x_log_energy_band2 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_x_log_energy_band3 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_x_log_energy_band4 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_y_log_energy_band0 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_y_log_energy_band1 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_y_log_energy_band2 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_y_log_energy_band3 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_y_log_energy_band4 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_z_log_energy_band0 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_z_log_energy_band1 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_z_log_energy_band2 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_z_log_energy_band3 = models.FloatField(null=True, blank=True)
-    watch_acc_spectrum_z_log_energy_band4 = models.FloatField(null=True, blank=True)
-    watch_acc_relative_directions_avr_cosine_similarity_lag_range0 = models.FloatField(null=True, blank=True)
-    watch_acc_relative_directions_avr_cosine_similarity_lag_range1 = models.FloatField(null=True, blank=True)
-    watch_acc_relative_directions_avr_cosine_similarity_lag_range2 = models.FloatField(null=True, blank=True)
-    watch_acc_relative_directions_avr_cosine_similarity_lag_range3 = models.FloatField(null=True, blank=True)
-    watch_acc_relative_directions_avr_cosine_similarity_lag_range4 = models.FloatField(null=True, blank=True)
-    watch_heading_mean_cos = models.FloatField(null=True, blank=True)
-    watch_heading_std_cos = models.FloatField(null=True, blank=True)
-    watch_heading_mom3_cos = models.FloatField(null=True, blank=True)
-    watch_heading_mom4_cos = models.FloatField(null=True, blank=True)
-    watch_heading_mean_sin = models.FloatField(null=True, blank=True)
-    watch_heading_std_sin = models.FloatField(null=True, blank=True)
-    watch_heading_mom3_sin = models.FloatField(null=True, blank=True)
-    watch_heading_mom4_sin = models.FloatField(null=True, blank=True)
-    watch_heading_entropy_8bins = models.FloatField(null=True, blank=True)
+    watch_acc_magnitude_stats_mean = models.FloatField(blank=True)
+    watch_acc_magnitude_stats_std = models.FloatField(blank=True)
+    watch_acc_magnitude_stats_moment3 = models.FloatField(blank=True)
+    watch_acc_magnitude_stats_moment4 = models.FloatField(blank=True)
+    watch_acc_magnitude_stats_percentile25 = models.FloatField(blank=True)
+    watch_acc_magnitude_stats_percentile50 = models.FloatField(blank=True)
+    watch_acc_magnitude_stats_percentile75 = models.FloatField(blank=True)
+    watch_acc_magnitude_stats_value_entropy = models.FloatField(blank=True)
+    watch_acc_magnitude_stats_time_entropy = models.FloatField(blank=True)
+    watch_acc_magnitude_spectrum_log_energy_band0 = models.FloatField(blank=True)
+    watch_acc_magnitude_spectrum_log_energy_band1 = models.FloatField(blank=True)
+    watch_acc_magnitude_spectrum_log_energy_band2 = models.FloatField(blank=True)
+    watch_acc_magnitude_spectrum_log_energy_band3 = models.FloatField(blank=True)
+    watch_acc_magnitude_spectrum_log_energy_band4 = models.FloatField(blank=True)
+    watch_acc_magnitude_spectrum_spectral_entropy = models.FloatField(blank=True)
+    watch_acc_magnitude_autocorrelation_period = models.FloatField(blank=True)
+    watch_acc_magnitude_autocorrelation_normalized_ac = models.FloatField(blank=True)
+    watch_acc_3d_mean_x = models.FloatField(blank=True)
+    watch_acc_3d_mean_y = models.FloatField(blank=True)
+    watch_acc_3d_mean_z = models.FloatField(blank=True)
+    watch_acc_3d_std_x = models.FloatField(blank=True)
+    watch_acc_3d_std_y = models.FloatField(blank=True)
+    watch_acc_3d_std_z = models.FloatField(blank=True)
+    watch_acc_3d_ro_xy = models.FloatField(blank=True)
+    watch_acc_3d_ro_xz = models.FloatField(blank=True)
+    watch_acc_3d_ro_yz = models.FloatField(blank=True)
+    watch_acc_spectrum_x_log_energy_band0 = models.FloatField(blank=True)
+    watch_acc_spectrum_x_log_energy_band1 = models.FloatField(blank=True)
+    watch_acc_spectrum_x_log_energy_band2 = models.FloatField(blank=True)
+    watch_acc_spectrum_x_log_energy_band3 = models.FloatField(blank=True)
+    watch_acc_spectrum_x_log_energy_band4 = models.FloatField(blank=True)
+    watch_acc_spectrum_y_log_energy_band0 = models.FloatField(blank=True)
+    watch_acc_spectrum_y_log_energy_band1 = models.FloatField(blank=True)
+    watch_acc_spectrum_y_log_energy_band2 = models.FloatField(blank=True)
+    watch_acc_spectrum_y_log_energy_band3 = models.FloatField(blank=True)
+    watch_acc_spectrum_y_log_energy_band4 = models.FloatField(blank=True)
+    watch_acc_spectrum_z_log_energy_band0 = models.FloatField(blank=True)
+    watch_acc_spectrum_z_log_energy_band1 = models.FloatField(blank=True)
+    watch_acc_spectrum_z_log_energy_band2 = models.FloatField(blank=True)
+    watch_acc_spectrum_z_log_energy_band3 = models.FloatField(blank=True)
+    watch_acc_spectrum_z_log_energy_band4 = models.FloatField(blank=True)
+    watch_acc_relative_directions_avr_cosine_similarity_lag_range0 = models.FloatField(blank=True)
+    watch_acc_relative_directions_avr_cosine_similarity_lag_range1 = models.FloatField(blank=True)
+    watch_acc_relative_directions_avr_cosine_similarity_lag_range2 = models.FloatField(blank=True)
+    watch_acc_relative_directions_avr_cosine_similarity_lag_range3 = models.FloatField(blank=True)
+    watch_acc_relative_directions_avr_cosine_similarity_lag_range4 = models.FloatField(blank=True)
+    watch_heading_mean_cos = models.FloatField(blank=True)
+    watch_heading_std_cos = models.FloatField(blank=True)
+    watch_heading_mom3_cos = models.FloatField(blank=True)
+    watch_heading_mom4_cos = models.FloatField(blank=True)
+    watch_heading_mean_sin = models.FloatField(blank=True)
+    watch_heading_std_sin = models.FloatField(blank=True)
+    watch_heading_mom3_sin = models.FloatField(blank=True)
+    watch_heading_mom4_sin = models.FloatField(blank=True)
+    watch_heading_entropy_8bins = models.FloatField(blank=True)
 
 
 
     # * Location Fields
-    location_num_valid_updates = models.FloatField(null=True, blank=True)
-    location_log_latitude_range = models.FloatField(null=True, blank=True)
-    location_log_longitude_range = models.FloatField(null=True, blank=True)
-    location_min_altitude = models.FloatField(null=True, blank=True)
-    location_max_altitude = models.FloatField(null=True, blank=True)
-    location_min_speed = models.FloatField(null=True, blank=True)
-    location_max_speed = models.FloatField(null=True, blank=True)
-    location_best_horizontal_accuracy = models.FloatField(null=True, blank=True)
-    location_best_vertical_accuracy = models.FloatField(null=True, blank=True)
-    location_diameter = models.FloatField(null=True, blank=True)
-    location_log_diameter = models.FloatField(null=True, blank=True)
-    location_quick_features_std_lat = models.FloatField(null=True, blank=True)
-    location_quick_features_std_long = models.FloatField(null=True, blank=True)
-    location_quick_features_lat_change = models.FloatField(null=True, blank=True)
-    location_quick_features_long_change = models.FloatField(null=True, blank=True)
-    location_quick_features_mean_abs_lat_deriv = models.FloatField(null=True, blank=True)
-    location_quick_features_mean_abs_long_deriv = models.FloatField(null=True, blank=True)
+    location_num_valid_updates = models.FloatField(blank=True)
+    location_log_latitude_range = models.FloatField(blank=True)
+    location_log_longitude_range = models.FloatField(blank=True)
+    location_min_altitude = models.FloatField(blank=True)
+    location_max_altitude = models.FloatField(blank=True)
+    location_min_speed = models.FloatField(blank=True)
+    location_max_speed = models.FloatField(blank=True)
+    location_best_horizontal_accuracy = models.FloatField(blank=True)
+    location_best_vertical_accuracy = models.FloatField(blank=True)
+    location_diameter = models.FloatField(blank=True)
+    location_log_diameter = models.FloatField(blank=True)
+    location_quick_features_std_lat = models.FloatField(blank=True)
+    location_quick_features_std_long = models.FloatField(blank=True)
+    location_quick_features_lat_change = models.FloatField(blank=True)
+    location_quick_features_long_change = models.FloatField(blank=True)
+    location_quick_features_mean_abs_lat_deriv = models.FloatField(blank=True)
+    location_quick_features_mean_abs_long_deriv = models.FloatField(blank=True)
 
 
 
     # * Audio Fields
-    audio_naive_mfcc0_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc1_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc2_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc3_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc4_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc5_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc6_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc7_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc8_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc9_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc10_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc11_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc12_mean = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc0_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc1_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc2_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc3_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc4_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc5_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc6_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc7_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc8_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc9_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc10_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc11_std = models.FloatField(null=True, blank=True)
-    audio_naive_mfcc12_std = models.FloatField(null=True, blank=True)
-    audio_properties_max_abs_value = models.FloatField(null=True, blank=True)
-    audio_properties_normalization_multiplier = models.FloatField(null=True, blank=True)
+    audio_naive_mfcc0_mean = models.FloatField(blank=True)
+    audio_naive_mfcc1_mean = models.FloatField(blank=True)
+    audio_naive_mfcc2_mean = models.FloatField(blank=True)
+    audio_naive_mfcc3_mean = models.FloatField(blank=True)
+    audio_naive_mfcc4_mean = models.FloatField(blank=True)
+    audio_naive_mfcc5_mean = models.FloatField(blank=True)
+    audio_naive_mfcc6_mean = models.FloatField(blank=True)
+    audio_naive_mfcc7_mean = models.FloatField(blank=True)
+    audio_naive_mfcc8_mean = models.FloatField(blank=True)
+    audio_naive_mfcc9_mean = models.FloatField(blank=True)
+    audio_naive_mfcc10_mean = models.FloatField(blank=True)
+    audio_naive_mfcc11_mean = models.FloatField(blank=True)
+    audio_naive_mfcc12_mean = models.FloatField(blank=True)
+    audio_naive_mfcc0_std = models.FloatField(blank=True)
+    audio_naive_mfcc1_std = models.FloatField(blank=True)
+    audio_naive_mfcc2_std = models.FloatField(blank=True)
+    audio_naive_mfcc3_std = models.FloatField(blank=True)
+    audio_naive_mfcc4_std = models.FloatField(blank=True)
+    audio_naive_mfcc5_std = models.FloatField(blank=True)
+    audio_naive_mfcc6_std = models.FloatField(blank=True)
+    audio_naive_mfcc7_std = models.FloatField(blank=True)
+    audio_naive_mfcc8_std = models.FloatField(blank=True)
+    audio_naive_mfcc9_std = models.FloatField(blank=True)
+    audio_naive_mfcc10_std = models.FloatField(blank=True)
+    audio_naive_mfcc11_std = models.FloatField(blank=True)
+    audio_naive_mfcc12_std = models.FloatField(blank=True)
+    audio_properties_max_abs_value = models.FloatField(blank=True)
+    audio_properties_normalization_multiplier = models.FloatField(blank=True)
 
 
 
@@ -270,14 +270,14 @@ class UserData(models.Model):
 
 
     # * Low Frequency Measurements
-    lf_measurements_light = models.FloatField(null=True, blank=True)
-    lf_measurements_pressure = models.FloatField(null=True, blank=True)
-    lf_measurements_proximity_cm = models.FloatField(null=True, blank=True)
-    lf_measurements_proximity = models.FloatField(null=True, blank=True)
-    lf_measurements_relative_humidity = models.FloatField(null=True, blank=True)
-    lf_measurements_battery_level = models.FloatField(null=True, blank=True)
-    lf_measurements_screen_brightness = models.FloatField(null=True, blank=True)
-    lf_measurements_temperature_ambient = models.FloatField(null=True, blank=True)
+    lf_measurements_light = models.FloatField(blank=True)
+    lf_measurements_pressure = models.FloatField(blank=True)
+    lf_measurements_proximity_cm = models.FloatField(blank=True)
+    lf_measurements_proximity = models.FloatField(blank=True)
+    lf_measurements_relative_humidity = models.FloatField(blank=True)
+    lf_measurements_battery_level = models.FloatField(blank=True)
+    lf_measurements_screen_brightness = models.FloatField(blank=True)
+    lf_measurements_temperature_ambient = models.FloatField(blank=True)
 
 
 
@@ -296,7 +296,7 @@ class UserData(models.Model):
     #     super(UserData, self).__init__()
     
     def setValues(self, dataDict):
-        super(UserData, self).__init__()
+        # super(UserData, self).__init__()
         
         acceleration = dataDict["acceleration"]
         mfcc = dataDict["mfcc"]
@@ -619,7 +619,7 @@ class UserData(models.Model):
 
 
         # * Location Fields
-        if not len(location) == 0:
+        if not len(location) < 2:
             num_updates, log_lat_range, log_long_range, \
                 min_alt, max_alt, min_spd, max_spd, best_horiz_acc, \
                 best_vert_acc, diameter, log_diameter = get_location_data(location)
@@ -846,9 +846,118 @@ class UserRoutine(models.Model):
     at_gym = models.FloatField()
     elevator = models.FloatField()
     at_school = models.FloatField()
-    anomaly = models.BooleanField()
+    anomaly = models.NullBooleanField()
 
     # ! Class Functions
+    def initialise(self, uuid, data_record, day, hour, minute):
+        self.uuid = uuid
+        self.data_record = data_record
+        self.day = day
+        self.hour = hour
+        self.minute = minute
+
+        self.lying_down = 0
+        self.sitting = 0
+        self.walking = 0
+        self.running = 0
+        self.bicycling = 0
+        self.sleeping = 0
+        self.driving_driver = 0
+        self.driving_pass = 0
+        self.exercise = 0
+        self.shopping = 0
+        self.strolling = 0
+        self.stairs_up = 0
+        self.stairs_down = 0
+        self.standing = 0
+        self.lab_work = 0
+        self.in_class = 0
+        self.in_meeting = 0
+        self.cooking = 0
+        self.drinking_alcohol = 0
+        self.shower = 0
+        self.cleaning = 0
+        self.laundry = 0
+        self.washing_dishes = 0
+        self.watch_tv = 0
+        self.surf_internet = 0
+        self.singing = 0
+        self.talking = 0
+        self.computer_work = 0
+        self.eating = 0
+        self.toilet = 0
+        self.grooming = 0
+        self.dressing = 0
+        self.with_coworker = 0
+        self.with_friends = 0
+        self.main_workplace = 0
+        self.indoors = 0
+        self.outdoors = 0
+        self.in_car = 0
+        self.on_bus = 0
+        self.home = 0
+        self.restaurant = 0
+        self.at_party = 0
+        self.at_bar = 0
+        self.beach = 0
+        self.at_gym = 0
+        self.elevator = 0
+        self.at_school = 0
+        self.anomaly = None
+        print("Created Routine Model")
+
+    def updatePredictions(self, predictions_arr):
+        self.lying_down = predictions_arr[0]
+        self.sitting = predictions_arr[1]
+        self.walking = predictions_arr[2]
+        self.running = predictions_arr[3]
+        self.bicycling = predictions_arr[4]
+        self.sleeping = predictions_arr[5]
+        self.driving_driver = predictions_arr[6]
+        self.driving_pass = predictions_arr[7]
+        self.exercise = predictions_arr[8]
+        self.shopping = predictions_arr[9]
+        self.strolling = predictions_arr[10]
+        self.stairs_up = predictions_arr[11]
+        self.stairs_down = predictions_arr[12]
+        self.standing = predictions_arr[13]
+        self.lab_work = predictions_arr[14]
+        self.in_class = predictions_arr[15]
+        self.in_meeting = predictions_arr[16]
+        self.cooking = predictions_arr[17]
+        self.drinking_alcohol = predictions_arr[18]
+        self.shower = predictions_arr[19]
+        self.cleaning = predictions_arr[20]
+        self.laundry = predictions_arr[21]
+        self.washing_dishes = predictions_arr[22]
+        self.watch_tv = predictions_arr[23]
+        self.surf_internet = predictions_arr[24]
+        self.singing = predictions_arr[25]
+        self.talking = predictions_arr[26]
+        self.computer_work = predictions_arr[27]
+        self.eating = predictions_arr[28]
+        self.toilet = predictions_arr[29]
+        self.grooming = predictions_arr[30]
+        self.dressing = predictions_arr[31]
+        self.with_coworker = predictions_arr[32]
+        self.with_friends = predictions_arr[33]
+        self.main_workplace = predictions_arr[34]
+        self.indoors = predictions_arr[35]
+        self.outdoors = predictions_arr[36]
+        self.in_car = predictions_arr[37]
+        self.on_bus = predictions_arr[38]
+        self.home = predictions_arr[39]
+        self.restaurant = predictions_arr[40]
+        self.at_party = predictions_arr[41]
+        self.at_bar = predictions_arr[42]
+        self.beach = predictions_arr[43]
+        self.at_gym = predictions_arr[44]
+        self.elevator = predictions_arr[45]
+        self.at_school = predictions_arr[46]
+
+    def setAnomaly(self, b):
+        self.anomaly = b
+
     def __str__(self):
         return str(self.id) + '\t' + \
                 self.uuid + '\t' + \
