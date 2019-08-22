@@ -10,6 +10,7 @@ import os
 import numpy as np
 from .inference.inferenceMLP import predict
 from .inference.format_data import standardize_features
+from .inference.svm_app import detect_anomaly
 import json
 from datetime import datetime
 
@@ -183,8 +184,8 @@ def predict_actions(request):
             else:
                 return Response(r_srlzr.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         try:
-            # unpredicted_data_qs.update(classified=True)
-            # UserRoutine.objects.bulk_create(routine_model_list)
+            unpredicted_data_qs.update(classified=True)
+            UserRoutine.objects.bulk_create(routine_model_list)
             print('Success')
             return Response({'success':True, 'activity_labels': prediction_label_list, 'timestamps':timestamp_list}, status=status.HTTP_200_OK)
         except:
@@ -202,6 +203,49 @@ def predict_actions(request):
             'unpredicted_data_length': unpredicted_data_length,
             'normalized_unpredicted_length': normalized_unpredicted_length
             }, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def detect_anomaly(request):
+    if request.method == 'GET':
+        uuid = request.query_params.get('uuid', None)
+        print(uuid)
+        print("Get points from database")
+        undetected_data_qs = UserRoutine.objects.filter(uuid=uuid, anomaly=None).order_by('timestamp')
+        undetected_data_length = undetected_data_qs.count()
+        if undetected_data_length == 0:
+            return Response({'success':False}, status=status.HTTP_204_NO_CONTENT)
+        nonanomolous_data_qs = UserRoutine.objects.filter(uuid=uuid, anomaly=False)
+        if nonanomolous_data_qs.count() < 1344:
+            undetected_data_qs.update(anomaly=False)
+            print("Not enough points for anomaly detection")
+            return
+        undetected_data_list = list(undetected_data_qs.values_list())
+        nonanomolous_data_list = list(nonanomolous_data_qs.values_list())
+
+        undetected_data = []
+        nonanomolous_data = []
+        for q in undetected_data_list:
+            p = list(q)[4:]
+            undetected_data.append(p)
+        for q in nonanomolous_data_list:
+            p = list(q)[4:]
+            nonanomolous_data.append(p)
+        
+        print("Detecting anomalies")
+        anomaly_result = detect_anomaly(nonanomolous_data, undetected_data)
+
+        print("Update model with results")
+        try:
+            for idx, result in enumerate(anomaly_result):
+                undetected_data_qs[idx].update(anomaly=result)
+
+            print('Success')
+            return Response({'success': True, 'anomaly': anomaly_result}, status=status.HTTP_200_OK)
+
+        except:
+            return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 
 
 def getLabelsofMax(arr1, arr2): 
