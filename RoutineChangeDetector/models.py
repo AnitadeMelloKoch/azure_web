@@ -10,9 +10,11 @@ from .locationMath import get_location_data, get_quick_location_data
 class UserData(models.Model):
 
     # * Record ID Fields
-    id = models.BigAutoField(primary_key=True)
+    # id = models.BigAutoField(primary_key=True)
+    record_id = models.CharField(max_length=100, primary_key=True)
     uuid = models.CharField(max_length=100, editable=False)
     timestamp = models.BigIntegerField(editable=False)
+    classified = models.BooleanField()
 
 
 
@@ -314,6 +316,9 @@ class UserData(models.Model):
         day = dataDict["day"]
         hour = dataDict["hour"]
         minute = dataDict["minute"]
+
+        self.record_id = uuid + str(timestamp)
+        self.classified = False
 
         # * Acceleration
         calc_acc = False
@@ -778,7 +783,7 @@ class UserData(models.Model):
 
     def __str__(self):
         returnText = ''
-        returnText += str(self.id) + '\t' + \
+        returnText += str(self.record_id) + '\t' + \
                         self.uuid + '\t' + \
                         str(self.timestamp) + '\t' + \
                         str(self.raw_acc_magnitude_stats_mean) + '\t' + \
@@ -787,7 +792,8 @@ class UserData(models.Model):
 
 class UserRoutine(models.Model):
     # * IDs
-    id = models.BigAutoField(primary_key=True)
+    # id = models.BigAutoField(primary_key=True)
+    routine_id = models.CharField(max_length=100, primary_key=True)
     uuid = models.CharField(max_length=100, editable=False)
     data_record = models.ForeignKey(UserData, on_delete=models.CASCADE)
 
@@ -849,7 +855,8 @@ class UserRoutine(models.Model):
     anomaly = models.NullBooleanField()
 
     # ! Class Functions
-    def initialise(self, uuid, data_record, day, hour, minute):
+    def initialise(self, uuid, timestamp, data_record, day, hour, minute):
+        self.routine_id = uuid + str(timestamp)
         self.uuid = uuid
         self.data_record = data_record
         self.day = day
@@ -959,6 +966,6 @@ class UserRoutine(models.Model):
         self.anomaly = b
 
     def __str__(self):
-        return str(self.id) + '\t' + \
+        return str(self.record_id) + '\t' + \
                 self.uuid + '\t' + \
                 str(self.data_record) + 't'
