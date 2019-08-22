@@ -62,7 +62,7 @@ def predict_actions(request):
         unpredicted_data_qs = UserData.objects.filter(uuid=uuid, classified=False).order_by('timestamp')
         unpredicted_data_length = unpredicted_data_qs.count()
         if unpredicted_data_length == 0:
-            return Response({'success':False}, status=status.HTTP_204_NO_CONTENT)
+            return Response({'success': False}, status=status.HTTP_204_NO_CONTENT)
         predicted_data_qs = UserData.objects.filter(uuid=uuid, classified=True).order_by('timestamp')
         predicted_data_length = min(predicted_data_qs.count(), 100)
 
@@ -123,14 +123,6 @@ def predict_actions(request):
             return Response({'success':True, 'activity_labels': prediction_label_list, 'timestamps':timestamp_list}, status=status.HTTP_200_OK)
         except:
             return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        # return Response({
-        #     'uuid': uuid,
-        #     'unpredicted_data': unpredicted_data,
-        #     'normalized_unpredicted_data': normalized_unpredicted_list,
-        #     'unpredicted_data_length': unpredicted_data_length,
-        #     'normalized_unpredicted_length': normalized_unpredicted_length
-        #     }, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def detect_anomaly(request):
