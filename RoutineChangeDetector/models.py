@@ -966,6 +966,6 @@ class UserRoutine(models.Model):
         self.anomaly = b
 
     def __str__(self):
-        return str(self.record_id) + '\t' + \
+        return str(self.routine_id) + '\t' + \
                 self.uuid + '\t' + \
                 str(self.data_record) + 't'

@@ -51,74 +51,6 @@ def user_data_list(request):
         except:
             return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        # values_matrix = []
-        # dataModels = []
-        # routineModels = []
-        # response = {
-        #     'labels': [],
-        #     'timestamps': [] 
-        # }
-        # strData = request.data["recordData"]
-        # # print(strData)
-        # recData = json.loads(strData)
-        # uuid = recData[0]["uuid"]
-        # for data in recData:
-        #     # print(data)
-        #     model = UserData() 
-        #     model.setValues(data)
-        #     response["timestamps"].append(model.timestamp)
-        #     serializer = UserDataSerializer(model)
-        #     if serializer.is_valid:
-        #         model.save()
-        #         values_matrix.append(list(serializer.data.values())[3:])
-        #         dataModels.append(model)
-        #         routineModel = UserRoutine()
-        #         routineModel.initialise(model.uuid, model.timestamp, model, data["day"], data["hour"], data["minute"])
-        #         routineSerializer = UserRoutineSerializer(routineModel)
-        #         if routineSerializer.is_valid:
-        #             routineModel, created = UserRoutine.objects.get_or_create(routineModel.record_id, defaults=routineModel)
-        #             if created:
-        #                 print("Saved Routine Instance")
-        #             else: 
-        #                 print("Using Existing RoutineModel")
-        #             routineModels.append(routineModel)
-        #         else:
-        #             return Response(routineSerializer.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-        #     else:
-        #         return Response(serializer.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-        # # values_matrix = np.loadtxt(open("D:\\nicho\Documents\RoutineChangeDetector\\app\ExtraSensory.per_uuid_features_labels\9DC38D04-E82E-4F29-AB52-B476535226F2.features_labels.csv", "rb"), delimiter=",", skiprows=1)
-        # # values_matrix = values_matrix[:1440,1:-52]
-        # standardized_values_matrix = standardize_features(values_matrix)
-        # predict_result = predict(standardized_values_matrix, os.environ["META_DIR"], os.environ["CHKPNT_DIR"], False)
-        # labels = np.asarray(["lying down","sitting","walking","running","bicycling","sleeping","driving (driver)","driving (pass)","exercise","shopping", "strolling", \
-        #     "stairs (up)","stairs (down)","standing","lab work","in class","in meeting","cooking","drinking alcohol","shower","cleaning","laundry","washing dishes",\
-        #         "watching TV","surfing Internet","singing","talking","computer work","eating","toilet","grooming","dressing","with coworker", "with friends",\
-        #             "main workplace","indoors","outdoors","in car","on bus","home","restaurant","at a party","at a bar",'beach','at the gym',"elevator","at school"])
-        
-        # for idx, routineModel in enumerate(routineModels):
-        #     # oldest at top
-        #     routineModel.updatePredictions(predict_result[idx])
-        #     routineModel.save()
-        # for i in range(len(predict_result)):
-        #     response["labels"].append(getLabelsofMax(predict_result[0], labels))
-        # print("Done Prediction")
-
-        # RoutineQuerySet = UserRoutine.objects.filter(uuid=uuid)
-        # numRecords = UserRoutine.objects.filter(uuid=uuid).count()
-        # print(uuid, numRecords)
-        # if numRecords < 10:
-        #     # set as not anomaly
-        #     print("Not enough records for anomaly detection")
-        #     for record in RoutineQuerySet.filter(anomaly=None):
-        #         print("Setting as not anomaly")
-        #         record.setAnomaly(False)
-        # else:
-        #     # Run Inference
-        #     print("Enough records to run inference")
-        #     pass
-
-
-        # return Response( response , status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def predict_actions(request):
@@ -172,8 +104,9 @@ def predict_actions(request):
             day = float(dt.strftime("%w"))
             hour = float(dt.strftime("%-H"))
             minute = float(dt.strftime("%-M"))
-            print(uuid, timestamp, d_model.timestamp, day, hour, minute)
+            # print(uuid, timestamp, d_model.timestamp, day, hour, minute)
             r_model.initialise(uuid, timestamp, d_model, day, hour, minute)
+            r_model.updatePredictions(prediction)
             r_srlzr = UserRoutineSerializer(r_model)
             if r_srlzr.is_valid:
                 try:
@@ -183,25 +116,20 @@ def predict_actions(request):
             else:
                 return Response(r_srlzr.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         try:
-            # unpredicted_data_qs.update(classified=True)
-            # UserRoutine.objects.bulk_create(routine_model_list)
+            unpredicted_data_qs.update(classified=True)
+            UserRoutine.objects.bulk_create(routine_model_list)
             print('Success')
             return Response({'success':True, 'activity_labels': prediction_label_list, 'timestamps':timestamp_list}, status=status.HTTP_200_OK)
         except:
             return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-            
-
-
-
-
-        return Response({
-            'uuid': uuid,
-            'unpredicted_data': unpredicted_data,
-            'normalized_unpredicted_data': normalized_unpredicted_list,
-            'unpredicted_data_length': unpredicted_data_length,
-            'normalized_unpredicted_length': normalized_unpredicted_length
-            }, status=status.HTTP_200_OK)
+        # return Response({
+        #     'uuid': uuid,
+        #     'unpredicted_data': unpredicted_data,
+        #     'normalized_unpredicted_data': normalized_unpredicted_list,
+        #     'unpredicted_data_length': unpredicted_data_length,
+        #     'normalized_unpredicted_length': normalized_unpredicted_length
+        #     }, status=status.HTTP_200_OK)
 
 
 def getLabelsofMax(arr1, arr2): 
