@@ -55,10 +55,10 @@ labels = ["day",
 "atSchool",
 "anomalie"]
 
-def main(nor_data_train, data_to_analyze):
+def detect_anomaly(nor_data_train, data_to_analyze):
 
 
-    # Setting the hyperparameters for Once Class SVM
+    # Setting the hyperparameters for One Class SVM
 
     oneclass = svm.OneClassSVM(kernel='rbf', gamma=0.01, nu=0.2)
 
@@ -85,5 +85,5 @@ if __name__ == '__main__':
 
     parsed = AP.parse_args()
 
-    main(   nor_data_train=parsed.train_data,
+    detect_anomaly(   nor_data_train=parsed.train_data,
             data_to_analyze=parsed.data_to_analyze)
