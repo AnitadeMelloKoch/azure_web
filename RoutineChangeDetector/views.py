@@ -146,17 +146,17 @@ def detect_anomaly(request):
         if nonanomolous_data_qs.count() < 1344:
             undetected_data_qs.update(anomaly=False)
             print("Not enough points for anomaly detection")
-            return
+            return Response({'success':True, 'information':'Not enough points for anomaly detection'}, status=status.HTTP_202_ACCEPTED)
         undetected_data_list = list(undetected_data_qs.values_list())
         nonanomolous_data_list = list(nonanomolous_data_qs.values_list())
 
         undetected_data = []
         nonanomolous_data = []
         for q in undetected_data_list:
-            p = list(q)[4:]
+            p = list(q)[3:-1]
             undetected_data.append(p)
         for q in nonanomolous_data_list:
-            p = list(q)[4:]
+            p = list(q)[3:-1]
             nonanomolous_data.append(p)
         
         print("Detecting anomalies")
