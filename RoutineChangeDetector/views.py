@@ -42,6 +42,7 @@ def user_data_list(request):
                 try:
                     UserData.objects.get(record_id=model.record_id)
                 except UserData.DoesNotExist:
+                    print("Creating new Model")
                     model_list.append(model)
             else: 
                 return Response(srlzr.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
@@ -135,7 +136,7 @@ def detect_anomalies(request):
         if undetected_data_length == 0:
             return Response({'success':False}, status=status.HTTP_204_NO_CONTENT)
         nonanomolous_data_qs = UserRoutine.objects.filter(uuid=uuid, anomaly=False)
-        if nonanomolous_data_qs.count() < 1344:
+        if nonanomolous_data_qs.count() < 50: # ! 1344:
             undetected_data_qs.update(anomaly=False)
             print("Not enough points for anomaly detection")
             return Response({'success':True, 'information':'Not enough points for anomaly detection'}, status=status.HTTP_202_ACCEPTED)

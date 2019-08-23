@@ -322,7 +322,10 @@ class UserData(models.Model):
 
         # * Acceleration
         calc_acc = False
-        for idx in range(len(acceleration)):
+        for idx in range(len(acceleration["x"])):
+            print(acceleration["x"])
+            print(acceleration["y"])
+            print(acceleration["z"])
             if not acceleration["x"][idx] == 0 or not acceleration["y"][idx] == 0 or not acceleration["z"][idx] == 0:
                 calc_acc = True
                 break       
@@ -389,7 +392,7 @@ class UserData(models.Model):
 
         # * Gyroscope
         calc_gyr = False
-        for idx in range(len(gyroscope)):
+        for idx in range(len(gyroscope["x"])):
             if not gyroscope["x"][idx] == 0 or not gyroscope["y"][idx] == 0 or not gyroscope["z"][idx] == 0:
                 calc_gyr = True
                 break       
@@ -456,7 +459,7 @@ class UserData(models.Model):
 
         # * Magnetometer Fields
         calc_mag = False
-        for idx in range(len(magnetometer)):
+        for idx in range(len(magnetometer["x"])):
             if not magnetometer["x"][idx] == 0 or not magnetometer["y"][idx] == 0 or not magnetometer["z"][idx] == 0:
                 calc_mag = True
                 break   
