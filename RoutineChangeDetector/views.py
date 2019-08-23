@@ -165,8 +165,17 @@ def detect_anomalies(request):
         except:
             return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-
+@api_view(['GET'])
+def get_user_anomalies(request):
+    if request.method == 'GET':
+        uuid = request.query_params.get('uuid', None)
+        start = request.query_params.get('start', None)
+        end = request.query_params.get('end', None)
+        print(uuid)
+        print("Getting list from database")
+        data_qs = UserData.objects.filter(uuid=uuid).order_by('-timestamp')
+        wanted_data_qs = data_qs[start:end]
+        
 
 def getLabelsofMax(arr1, arr2): 
     return arr2[arr1>0.9]
