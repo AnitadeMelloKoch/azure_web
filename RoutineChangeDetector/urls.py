@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     path('data/', views.user_data_list, name='get_user_data_list'),
     path('predict-actions/', views.predict_actions, name='predict_actions'),
-    path('detect-anomalies/', views.detect_anomaly, name='detect_anomaly')
+    path('detect-anomalies/', views.detect_anomalies, name='detect_anomalies')
 ]

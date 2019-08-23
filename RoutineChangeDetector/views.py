@@ -125,7 +125,7 @@ def predict_actions(request):
             return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
-def detect_anomaly(request):
+def detect_anomalies(request):
     if request.method == 'GET':
         uuid = request.query_params.get('uuid', None)
         print(uuid)
