@@ -157,15 +157,18 @@ def autocorr(x, y, z, timesteps):
     previous = 1000
     maxVal = 0
     
-    while (not found):
-        if(previous > autocorr[index]):
-            previous = autocorr[index]
-            index += 1
-        else:
-            maxVal = np.argmax(autocorr[index:])
-            found = True
-    period = (timesteps[index:][maxVal] - timesteps[0]) / 1000 # To convert to seconds from milliseconds
-    return (period),(autocorr[index:][maxVal])
+    try:
+        while (not found):
+            if(previous > autocorr[index]):
+                previous = autocorr[index]
+                index += 1
+            else:
+                maxVal = np.argmax(autocorr[index:])
+                found = True
+        period = (timesteps[index:][maxVal] - timesteps[0]) / 1000 # To convert to seconds from milliseconds
+        return (period),(autocorr[index:][maxVal])
+    except:
+        return 0,0
 
 # working
 def correlation_coeff(x, y, z):

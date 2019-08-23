@@ -174,9 +174,44 @@ def get_user_anomalies(request):
         end = request.query_params.get('end', None)
         print(uuid)
         print("Getting list from database")
-        data_qs = UserData.objects.filter(uuid=uuid).order_by('-timestamp')
+        data_qs = UserRoutine.objects.filter(uuid=uuid).order_by('-timestamp')
         wanted_data_qs = data_qs[start:end]
+        wanted_data_list = list(wanted_data_qs.values_list())
+
+        wanted_data = []
+        for q in wanted_data_list:
+            p = list(q)[7:-1]
+            wanted_data.append(p)
+        anomaly = []
+        for q in wanted_data_list:
+            p = list(q)[-1]
+            anomaly.append(p)
+        timestamps = []
+        for q in wanted_data_list:
+            p = list(q)[2]
+            timestamps.append(p)
+
+        labels = np.asarray(["lying down","sitting","walking","running","bicycling","sleeping","driving (driver)","driving (pass)","exercise","shopping", "strolling", \
+            "stairs (up)","stairs (down)","standing","lab work","in class","in meeting","cooking","drinking alcohol","shower","cleaning","laundry","washing dishes",\
+                "watching TV","surfing Internet","singing","talking","computer work","eating","toilet","grooming","dressing","with coworker", "with friends",\
+                    "main workplace","indoors","outdoors","in car","on bus","home","restaurant","at a party","at a bar",'beach','at the gym',"elevator","at school"])
         
+        activity_label_list = []
+        for idx, activities in enumerate(wanted_data):
+            activity_label_list.append(getLabelsofMax(activities, labels))
+
+        anomaly = bool(anomaly)
+
+        return Response({'success': True, 'activity_labels': activity_label_list, 'timestamps':timestamps, 'anomaly':anomaly}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_user_record_num(request):
+    if request.method == 'GET':
+        uuid = request.query_params.get('uuid', None)
+        data_qs = UserRoutine.objects.filter(uuid=uuid)
+        num_record = data_qs.count()
+
+        return Response({'success':True, 'num_records':num_record}, status=status.HTTP_200_OK)
 
 def getLabelsofMax(arr1, arr2): 
     return arr2[arr1>0.9]
