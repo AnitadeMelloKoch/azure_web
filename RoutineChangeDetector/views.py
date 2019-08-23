@@ -145,10 +145,10 @@ def detect_anomalies(request):
         undetected_data = []
         nonanomolous_data = []
         for q in undetected_data_list:
-            p = list(q)[3:-1]
+            p = list(q)[4:-1]
             undetected_data.append(p)
         for q in nonanomolous_data_list:
-            p = list(q)[3:-1]
+            p = list(q)[4:-1]
             nonanomolous_data.append(p)
         
         print("Detecting anomalies")

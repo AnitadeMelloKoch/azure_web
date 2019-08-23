@@ -795,6 +795,7 @@ class UserRoutine(models.Model):
     # id = models.BigAutoField(primary_key=True)
     routine_id = models.CharField(max_length=100, primary_key=True)
     uuid = models.CharField(max_length=100, editable=False)
+    timestamp = models.BigIntegerField(editable=False)
     data_record = models.ForeignKey(UserData, on_delete=models.CASCADE)
 
     # * Time
@@ -858,6 +859,7 @@ class UserRoutine(models.Model):
     def initialise(self, uuid, timestamp, data_record, day, hour, minute):
         self.routine_id = uuid + str(timestamp)
         self.uuid = uuid
+        self.timestamp = timestamp
         self.data_record = data_record
         self.day = day
         self.hour = hour
@@ -966,6 +968,6 @@ class UserRoutine(models.Model):
         self.anomaly = b
 
     def __str__(self):
-        return str(self.routine_id) + '\t' + \
-                self.uuid + '\t' + \
+        return self.uuid + '\t' + \
+                str(self.timestamp) + '\t' + \
                 str(self.data_record) + 't'
