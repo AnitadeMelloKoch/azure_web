@@ -32,7 +32,7 @@ def predict(data, meta_dir, checkpoint_dir, validate):
         weight_action_2_layer_1 = graph.get_tensor_by_name("weight_action_2_layer_1:0")
         bias_action_2_layer_1 = graph.get_tensor_by_name("weight_action_2_layer_1_bias:0")
         weight_loc_layer_1 = graph.get_tensor_by_name("loc_layer_1:0")
-        bias_loc_layer_1 = graph.get_tensor_by_name("loc_layer_1_bias")
+        bias_loc_layer_1 = graph.get_tensor_by_name("loc_layer_1_bias:0")
         weight_out_action_1 = graph.get_tensor_by_name("weight_out_action_1:0")
         bias_out_action_1 = graph.get_tensor_by_name("weight_out_action_1_bias:0")
         weight_out_action_2 = graph.get_tensor_by_name("weight_out_action_2:0")
