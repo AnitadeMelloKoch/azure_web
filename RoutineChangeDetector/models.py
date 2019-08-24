@@ -323,43 +323,40 @@ class UserData(models.Model):
         # * Acceleration
         calc_acc = False
         for idx in range(len(acceleration["x"])):
-            print(acceleration["x"])
-            print(acceleration["y"])
-            print(acceleration["z"])
             if not acceleration["x"][idx] == 0 or not acceleration["y"][idx] == 0 or not acceleration["z"][idx] == 0:
                 calc_acc = True
                 break       
         if calc_acc:
-            self.raw_acc_magnitude_stats_mean = mean_mag(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_stats_std = std_mag(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_stats_moment3 = moment3(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_stats_moment4 = moment4(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_stats_percentile25 = percentile25(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_stats_percentile50 = percentile50(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_stats_percentile75 = percentile75(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_stats_value_entropy = valueEntropy(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_stats_time_entropy = timeEntropy(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_spectrum_log_energy_band0 = energyband0(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_spectrum_log_energy_band1 = energyband1(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_spectrum_log_energy_band2 = energyband2(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_spectrum_log_energy_band3 = energyband3(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_spectrum_log_energy_band4 = energyband4(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_magnitude_spectrum_spectral_entropy = spectral_entropy(acceleration["x"], acceleration["y"], acceleration["z"])
+            self.raw_acc_magnitude_stats_mean = float(mean_mag(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_stats_std = float(std_mag(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_stats_moment3 = float(moment3(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_stats_moment4 = float(moment4(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_stats_percentile25 = float(percentile25(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_stats_percentile50 = float(percentile50(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_stats_percentile75 = float(percentile75(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_stats_value_entropy = float(valueEntropy(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_stats_time_entropy = float(timeEntropy(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_spectrum_log_energy_band0 = float(energyband0(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_spectrum_log_energy_band1 = float(energyband1(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_spectrum_log_energy_band2 = float(energyband2(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_spectrum_log_energy_band3 = float(energyband3(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_spectrum_log_energy_band4 = float(energyband4(acceleration["x"], acceleration["y"], acceleration["z"]))
+            self.raw_acc_magnitude_spectrum_spectral_entropy = float(spectral_entropy(acceleration["x"], acceleration["y"], acceleration["z"]))
             acc_period, acc_ac = autocorr(acceleration["x"], acceleration["y"], acceleration["z"], acceleration["timestamp"])
-            self.raw_acc_magnitude_autocorrelation_period = acc_period
-            self.raw_acc_magnitude_autocorrelation_normalized_ac = acc_ac
+            self.raw_acc_magnitude_autocorrelation_period = float(acc_period)
+            self.raw_acc_magnitude_autocorrelation_normalized_ac = float(acc_ac)
             acc_mean_x, acc_mean_y, acc_mean_z = mean_dir(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_3d_mean_x = acc_mean_x
-            self.raw_acc_3d_mean_y = acc_mean_y
-            self.raw_acc_3d_mean_z = acc_mean_z
+            self.raw_acc_3d_mean_x = float(acc_mean_x)
+            self.raw_acc_3d_mean_y = float(acc_mean_y)
+            self.raw_acc_3d_mean_z = float(acc_mean_z)
             acc_std_x, acc_std_y, acc_std_z = std_dev_dir(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_3d_std_x = acc_std_x
-            self.raw_acc_3d_std_y = acc_std_y
-            self.raw_acc_3d_std_z = acc_std_z
+            self.raw_acc_3d_std_x = float(acc_std_x)
+            self.raw_acc_3d_std_y = float(acc_std_y)
+            self.raw_acc_3d_std_z = float(acc_std_z)
             acc_xy, acc_xz, acc_yz = correlation_coeff(acceleration["x"], acceleration["y"], acceleration["z"])
-            self.raw_acc_3d_ro_xy = acc_xy
-            self.raw_acc_3d_ro_xz = acc_xz
-            self.raw_acc_3d_ro_yz = acc_yz
+            self.raw_acc_3d_ro_xy = float(acc_xy)
+            self.raw_acc_3d_ro_xz = float(acc_xz)
+            self.raw_acc_3d_ro_yz = float(acc_yz)
         else:
             self.raw_acc_magnitude_stats_mean = 0
             self.raw_acc_magnitude_stats_std = 0
@@ -397,36 +394,36 @@ class UserData(models.Model):
                 calc_gyr = True
                 break       
         if calc_gyr:
-            self.proc_gyro_magnitude_stats_mean = mean_mag(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_stats_std = std_mag(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_stats_moment3 = moment3(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_stats_moment4 = moment4(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_stats_percentile25 = percentile25(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_stats_percentile50 = percentile50(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_stats_percentile75 = percentile75(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_stats_value_entropy = valueEntropy(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_stats_time_entropy = timeEntropy(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_spectrum_log_energy_band0 = energyband0(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_spectrum_log_energy_band1 = energyband1(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_spectrum_log_energy_band2 = energyband2(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_spectrum_log_energy_band3 = energyband3(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_spectrum_log_energy_band4 = energyband4(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_magnitude_spectrum_spectral_entropy = spectral_entropy(gyroscope["x"], gyroscope["y"], gyroscope["z"])
+            self.proc_gyro_magnitude_stats_mean = float(mean_mag(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_stats_std = float(std_mag(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_stats_moment3 = float(moment3(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_stats_moment4 = float(moment4(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_stats_percentile25 = float(percentile25(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_stats_percentile50 = float(percentile50(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_stats_percentile75 = float(percentile75(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_stats_value_entropy = float(valueEntropy(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_stats_time_entropy = float(timeEntropy(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_spectrum_log_energy_band0 = float(energyband0(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_spectrum_log_energy_band1 = float(energyband1(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_spectrum_log_energy_band2 = float(energyband2(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_spectrum_log_energy_band3 = float(energyband3(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_spectrum_log_energy_band4 = float(energyband4(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
+            self.proc_gyro_magnitude_spectrum_spectral_entropy = float(spectral_entropy(gyroscope["x"], gyroscope["y"], gyroscope["z"]))
             gyr_period, gyr_ac = autocorr(gyroscope["x"], gyroscope["y"], gyroscope["z"], gyroscope["timestamp"])
-            self.proc_gyro_magnitude_autocorrelation_period = gyr_period
-            self.proc_gyro_magnitude_autocorrelation_normalized_ac = gyr_ac
+            self.proc_gyro_magnitude_autocorrelation_period = float(gyr_period)
+            self.proc_gyro_magnitude_autocorrelation_normalized_ac = float(gyr_ac)
             gyr_mean_x, gyr_mean_y, gyr_mean_z = mean_dir(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_3d_mean_x = gyr_mean_x
-            self.proc_gyro_3d_mean_y = gyr_mean_y
-            self.proc_gyro_3d_mean_z = gyr_mean_z
+            self.proc_gyro_3d_mean_x = float(gyr_mean_x)
+            self.proc_gyro_3d_mean_y = float(gyr_mean_y)
+            self.proc_gyro_3d_mean_z = float(gyr_mean_z)
             gyr_std_x, gyr_std_y, gyr_std_z = std_dev_dir(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_3d_std_x = gyr_std_x
-            self.proc_gyro_3d_std_y = gyr_std_y
-            self.proc_gyro_3d_std_z = gyr_std_z
+            self.proc_gyro_3d_std_x = float(gyr_std_x)
+            self.proc_gyro_3d_std_y = float(gyr_std_y)
+            self.proc_gyro_3d_std_z = float(gyr_std_z)
             gyr_xy, gyr_xz, gyr_yz = correlation_coeff(gyroscope["x"], gyroscope["y"], gyroscope["z"])
-            self.proc_gyro_3d_ro_xy = gyr_xy
-            self.proc_gyro_3d_ro_xz = gyr_xz
-            self.proc_gyro_3d_ro_yz = gyr_yz
+            self.proc_gyro_3d_ro_xy = float(gyr_xy)
+            self.proc_gyro_3d_ro_xz = float(gyr_xz)
+            self.proc_gyro_3d_ro_yz = float(gyr_yz)
         else:
             self.proc_gyro_magnitude_stats_mean = 0
             self.proc_gyro_magnitude_stats_std = 0
@@ -497,41 +494,41 @@ class UserData(models.Model):
                     new_magn_dict["z"].append(magn_z)
             magnetometer = new_magn_dict
 
-            self.raw_magnet_magnitude_stats_mean = mean_mag(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_stats_std = std_mag(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_stats_moment3 = moment3(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_stats_moment4 = moment4(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_stats_percentile25 = percentile25(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_stats_percentile50 = percentile50(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_stats_percentile75 = percentile75(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_stats_value_entropy = valueEntropy(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_stats_time_entropy = timeEntropy(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_spectrum_log_energy_band0 = energyband0(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_spectrum_log_energy_band1 = energyband1(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_spectrum_log_energy_band2 = energyband2(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_spectrum_log_energy_band3 = energyband3(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_spectrum_log_energy_band4 = energyband4(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_magnitude_spectrum_spectral_entropy = spectral_entropy(magnetometer["x"], magnetometer["y"], magnetometer["z"])
+            self.raw_magnet_magnitude_stats_mean = float(mean_mag(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_stats_std = float(std_mag(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_stats_moment3 = float(moment3(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_stats_moment4 = float(moment4(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_stats_percentile25 = float(percentile25(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_stats_percentile50 = float(percentile50(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_stats_percentile75 = float(percentile75(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_stats_value_entropy = float(valueEntropy(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_stats_time_entropy = float(timeEntropy(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_spectrum_log_energy_band0 = float(energyband0(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_spectrum_log_energy_band1 = float(energyband1(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_spectrum_log_energy_band2 = float(energyband2(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_spectrum_log_energy_band3 = float(energyband3(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_spectrum_log_energy_band4 = float(energyband4(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
+            self.raw_magnet_magnitude_spectrum_spectral_entropy = float(spectral_entropy(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
             mag_period, mag_ac = autocorr(magnetometer["x"], magnetometer["y"], magnetometer["z"], magnetometer["timestamp"])
-            self.raw_magnet_magnitude_autocorrelation_period = mag_period
-            self.raw_magnet_magnitude_autocorrelation_normalized_ac = mag_ac
+            self.raw_magnet_magnitude_autocorrelation_period = float(mag_period)
+            self.raw_magnet_magnitude_autocorrelation_normalized_ac = float(mag_ac)
             mag_mean_x, mag_mean_y, mag_mean_z = mean_dir(magnetometer["x"], magnetometer["y"], magnetometer["z"])     
-            self.raw_magnet_3d_mean_x = mag_mean_x
-            self.raw_magnet_3d_mean_y = mag_mean_y
-            self.raw_magnet_3d_mean_z = mag_mean_z
+            self.raw_magnet_3d_mean_x = float(mag_mean_x)
+            self.raw_magnet_3d_mean_y = float(mag_mean_y)
+            self.raw_magnet_3d_mean_z = float(mag_mean_z)
             mag_std_x, mag_std_y, mag_std_z = std_dev_dir(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_3d_std_x = mag_std_x
-            self.raw_magnet_3d_std_y = mag_std_y
-            self.raw_magnet_3d_std_z = mag_std_z
+            self.raw_magnet_3d_std_x = float(mag_std_x)
+            self.raw_magnet_3d_std_y = float(mag_std_y)
+            self.raw_magnet_3d_std_z = float(mag_std_z)
             mag_xy, mag_xz, mag_yz = correlation_coeff(magnetometer["x"], magnetometer["y"], magnetometer["z"])
-            self.raw_magnet_3d_ro_xy = mag_xy
-            self.raw_magnet_3d_ro_xz = mag_xz
-            self.raw_magnet_3d_ro_yz = mag_yz
-            self.raw_magnet_avr_cosine_similarity_lag_range0 = cos_similarity_0(magnetometer["x"], magnetometer["y"], magnetometer["z"], magnetometer["timestamp"])
-            self.raw_magnet_avr_cosine_similarity_lag_range1 = cos_similarity_1(magnetometer["x"], magnetometer["y"], magnetometer["z"], magnetometer["timestamp"])
-            self.raw_magnet_avr_cosine_similarity_lag_range2 = cos_similarity_2(magnetometer["x"], magnetometer["y"], magnetometer["z"], magnetometer["timestamp"])
-            self.raw_magnet_avr_cosine_similarity_lag_range3 = cos_similarity_3(magnetometer["x"], magnetometer["y"], magnetometer["z"], magnetometer["timestamp"])
-            self.raw_magnet_avr_cosine_similarity_lag_range4 = cos_similarity_4(magnetometer["x"], magnetometer["y"], magnetometer["z"], magnetometer["timestamp"])
+            self.raw_magnet_3d_ro_xy = float(mag_xy)
+            self.raw_magnet_3d_ro_xz = float(mag_xz)
+            self.raw_magnet_3d_ro_yz = float(mag_yz)
+            self.raw_magnet_avr_cosine_similarity_lag_range0 = float(cos_similarity_0(magnetometer["x"], magnetometer["y"], magnetometer["z"], magnetometer["timestamp"]))
+            self.raw_magnet_avr_cosine_similarity_lag_range1 = float(cos_similarity_1(magnetometer["x"], magnetometer["y"], magnetometer["z"], magnetometer["timestamp"]))
+            self.raw_magnet_avr_cosine_similarity_lag_range2 = float(cos_similarity_2(magnetometer["x"], magnetometer["y"], magnetometer["z"], magnetometer["timestamp"]))
+            self.raw_magnet_avr_cosine_similarity_lag_range3 = float(cos_similarity_3(magnetometer["x"], magnetometer["y"], magnetometer["z"], magnetometer["timestamp"]))
+            self.raw_magnet_avr_cosine_similarity_lag_range4 = float(cos_similarity_4(magnetometer["x"], magnetometer["y"], magnetometer["z"], magnetometer["timestamp"]))
         else:
             self.raw_magnet_magnitude_stats_mean = 0
             self.raw_magnet_magnitude_stats_std = 0
@@ -633,23 +630,23 @@ class UserData(models.Model):
                 best_vert_acc, diameter, log_diameter = get_location_data(location)
             std_lat, std_long, lat_change, long_change, \
                 mean_abs_lat_deriv, mean_abs_long_deriv = get_quick_location_data(location)
-            self.location_num_valid_updates = num_updates
-            self.location_log_latitude_range = log_lat_range
-            self.location_log_longitude_range = log_long_range
-            self.location_min_altitude = min_alt
-            self.location_max_altitude = max_alt
-            self.location_min_speed = min_spd
-            self.location_max_speed = max_spd
-            self.location_best_horizontal_accuracy = best_horiz_acc
-            self.location_best_vertical_accuracy = best_vert_acc
-            self.location_diameter = diameter
-            self.location_log_diameter = log_diameter
-            self.location_quick_features_std_lat = std_lat
-            self.location_quick_features_std_long = std_long
-            self.location_quick_features_lat_change = lat_change
-            self.location_quick_features_long_change = long_change
-            self.location_quick_features_mean_abs_lat_deriv = mean_abs_lat_deriv
-            self.location_quick_features_mean_abs_long_deriv = mean_abs_long_deriv
+            self.location_num_valid_updates = float(num_updates)
+            self.location_log_latitude_range = float(log_lat_range)
+            self.location_log_longitude_range = float(log_long_range)
+            self.location_min_altitude = float(min_alt)
+            self.location_max_altitude = float(max_alt)
+            self.location_min_speed = float(min_spd)
+            self.location_max_speed = float(max_spd)
+            self.location_best_horizontal_accuracy = float(best_horiz_acc)
+            self.location_best_vertical_accuracy = float(best_vert_acc)
+            self.location_diameter = float(diameter)
+            self.location_log_diameter = float(log_diameter)
+            self.location_quick_features_std_lat = float(std_lat)
+            self.location_quick_features_std_long = float(std_long)
+            self.location_quick_features_lat_change = float(lat_change)
+            self.location_quick_features_long_change = float(long_change)
+            self.location_quick_features_mean_abs_lat_deriv = float(mean_abs_lat_deriv)
+            self.location_quick_features_mean_abs_long_deriv = float(mean_abs_long_deriv)
         else:
             self.location_num_valid_updates = 0
             self.location_log_latitude_range = 0
@@ -671,34 +668,34 @@ class UserData(models.Model):
 
 
         # * Audio Fields
-        self.audio_naive_mfcc0_mean = numpy.nanmean(mfcc["mfcc0"])
-        self.audio_naive_mfcc1_mean = numpy.nanmean(mfcc["mfcc1"])
-        self.audio_naive_mfcc2_mean = numpy.nanmean(mfcc["mfcc2"])
-        self.audio_naive_mfcc3_mean = numpy.nanmean(mfcc["mfcc3"])
-        self.audio_naive_mfcc4_mean = numpy.nanmean(mfcc["mfcc4"])
-        self.audio_naive_mfcc5_mean = numpy.nanmean(mfcc["mfcc5"])
-        self.audio_naive_mfcc6_mean = numpy.nanmean(mfcc["mfcc6"])
-        self.audio_naive_mfcc7_mean = numpy.nanmean(mfcc["mfcc7"])
-        self.audio_naive_mfcc8_mean = numpy.nanmean(mfcc["mfcc8"])
-        self.audio_naive_mfcc9_mean = numpy.nanmean(mfcc["mfcc9"])
-        self.audio_naive_mfcc10_mean = numpy.nanmean(mfcc["mfcc10"])
-        self.audio_naive_mfcc11_mean = numpy.nanmean(mfcc["mfcc11"])
-        self.audio_naive_mfcc12_mean = numpy.nanmean(mfcc["mfcc12"])
-        self.audio_naive_mfcc0_std = numpy.nanstd(mfcc["mfcc0"])
-        self.audio_naive_mfcc1_std = numpy.nanstd(mfcc["mfcc1"])
-        self.audio_naive_mfcc2_std = numpy.nanstd(mfcc["mfcc2"])
-        self.audio_naive_mfcc3_std = numpy.nanstd(mfcc["mfcc3"])
-        self.audio_naive_mfcc4_std = numpy.nanstd(mfcc["mfcc4"])
-        self.audio_naive_mfcc5_std = numpy.nanstd(mfcc["mfcc5"])
-        self.audio_naive_mfcc6_std = numpy.nanstd(mfcc["mfcc6"])
-        self.audio_naive_mfcc7_std = numpy.nanstd(mfcc["mfcc7"])
-        self.audio_naive_mfcc8_std = numpy.nanstd(mfcc["mfcc8"])
-        self.audio_naive_mfcc9_std = numpy.nanstd(mfcc["mfcc9"])
-        self.audio_naive_mfcc10_std = numpy.nanstd(mfcc["mfcc10"])
-        self.audio_naive_mfcc11_std = numpy.nanstd(mfcc["mfcc11"])
-        self.audio_naive_mfcc12_std = numpy.nanstd(mfcc["mfcc12"])
-        self.audio_properties_max_abs_value = -mfcc["normalizationMult"]
-        self.audio_properties_normalization_multiplier = mfcc["normalizationMult"]
+        self.audio_naive_mfcc0_mean = float(numpy.nanmean(mfcc["mfcc0"]))
+        self.audio_naive_mfcc1_mean = float(numpy.nanmean(mfcc["mfcc1"]))
+        self.audio_naive_mfcc2_mean = float(numpy.nanmean(mfcc["mfcc2"]))
+        self.audio_naive_mfcc3_mean = float(numpy.nanmean(mfcc["mfcc3"]))
+        self.audio_naive_mfcc4_mean = float(numpy.nanmean(mfcc["mfcc4"]))
+        self.audio_naive_mfcc5_mean = float(numpy.nanmean(mfcc["mfcc5"]))
+        self.audio_naive_mfcc6_mean = float(numpy.nanmean(mfcc["mfcc6"]))
+        self.audio_naive_mfcc7_mean = float(numpy.nanmean(mfcc["mfcc7"]))
+        self.audio_naive_mfcc8_mean = float(numpy.nanmean(mfcc["mfcc8"]))
+        self.audio_naive_mfcc9_mean = float(numpy.nanmean(mfcc["mfcc9"]))
+        self.audio_naive_mfcc10_mean = float(numpy.nanmean(mfcc["mfcc10"]))
+        self.audio_naive_mfcc11_mean = float(numpy.nanmean(mfcc["mfcc11"]))
+        self.audio_naive_mfcc12_mean = float(numpy.nanmean(mfcc["mfcc12"]))
+        self.audio_naive_mfcc0_std = float(numpy.nanstd(mfcc["mfcc0"]))
+        self.audio_naive_mfcc1_std = float(numpy.nanstd(mfcc["mfcc1"]))
+        self.audio_naive_mfcc2_std = float(numpy.nanstd(mfcc["mfcc2"]))
+        self.audio_naive_mfcc3_std = float(numpy.nanstd(mfcc["mfcc3"]))
+        self.audio_naive_mfcc4_std = float(numpy.nanstd(mfcc["mfcc4"]))
+        self.audio_naive_mfcc5_std = float(numpy.nanstd(mfcc["mfcc5"]))
+        self.audio_naive_mfcc6_std = float(numpy.nanstd(mfcc["mfcc6"]))
+        self.audio_naive_mfcc7_std = float(numpy.nanstd(mfcc["mfcc7"]))
+        self.audio_naive_mfcc8_std = float(numpy.nanstd(mfcc["mfcc8"]))
+        self.audio_naive_mfcc9_std = float(numpy.nanstd(mfcc["mfcc9"]))
+        self.audio_naive_mfcc10_std = float(numpy.nanstd(mfcc["mfcc10"]))
+        self.audio_naive_mfcc11_std = float(numpy.nanstd(mfcc["mfcc11"]))
+        self.audio_naive_mfcc12_std = float(numpy.nanstd(mfcc["mfcc12"]))
+        self.audio_properties_max_abs_value = float(-mfcc["normalizationMult"])
+        self.audio_properties_normalization_multiplier = float(mfcc["normalizationMult"])
 
         # * App State
         if app_state == "ACTIVE":
@@ -761,7 +758,7 @@ class UserData(models.Model):
         self.lf_measurements_proximity_cm = 0
         self.lf_measurements_proximity = 0
         self.lf_measurements_relative_humidity = 0
-        self.lf_measurements_battery_level = 0
+        self.lf_measurements_battery_level = float(battery_level)
         self.lf_measurements_screen_brightness = 0
         self.lf_measurements_temperature_ambient = 0
 
@@ -795,7 +792,6 @@ class UserData(models.Model):
 
 class UserRoutine(models.Model):
     # * IDs
-    # id = models.BigAutoField(primary_key=True)
     routine_id = models.CharField(max_length=100, primary_key=True)
     uuid = models.CharField(max_length=100, editable=False)
     timestamp = models.BigIntegerField(editable=False)
@@ -919,53 +915,53 @@ class UserRoutine(models.Model):
         print("Created Routine Model")
 
     def updatePredictions(self, predictions_arr):
-        self.lying_down = predictions_arr[0]
-        self.sitting = predictions_arr[1]
-        self.walking = predictions_arr[2]
-        self.running = predictions_arr[3]
-        self.bicycling = predictions_arr[4]
-        self.sleeping = predictions_arr[5]
-        self.driving_driver = predictions_arr[6]
-        self.driving_pass = predictions_arr[7]
-        self.exercise = predictions_arr[8]
-        self.shopping = predictions_arr[9]
-        self.strolling = predictions_arr[10]
-        self.stairs_up = predictions_arr[11]
-        self.stairs_down = predictions_arr[12]
-        self.standing = predictions_arr[13]
-        self.lab_work = predictions_arr[14]
-        self.in_class = predictions_arr[15]
-        self.in_meeting = predictions_arr[16]
-        self.cooking = predictions_arr[17]
-        self.drinking_alcohol = predictions_arr[18]
-        self.shower = predictions_arr[19]
-        self.cleaning = predictions_arr[20]
-        self.laundry = predictions_arr[21]
-        self.washing_dishes = predictions_arr[22]
-        self.watch_tv = predictions_arr[23]
-        self.surf_internet = predictions_arr[24]
-        self.singing = predictions_arr[25]
-        self.talking = predictions_arr[26]
-        self.computer_work = predictions_arr[27]
-        self.eating = predictions_arr[28]
-        self.toilet = predictions_arr[29]
-        self.grooming = predictions_arr[30]
-        self.dressing = predictions_arr[31]
-        self.with_coworker = predictions_arr[32]
-        self.with_friends = predictions_arr[33]
-        self.main_workplace = predictions_arr[34]
-        self.indoors = predictions_arr[35]
-        self.outdoors = predictions_arr[36]
-        self.in_car = predictions_arr[37]
-        self.on_bus = predictions_arr[38]
-        self.home = predictions_arr[39]
-        self.restaurant = predictions_arr[40]
-        self.at_party = predictions_arr[41]
-        self.at_bar = predictions_arr[42]
-        self.beach = predictions_arr[43]
-        self.at_gym = predictions_arr[44]
-        self.elevator = predictions_arr[45]
-        self.at_school = predictions_arr[46]
+        self.lying_down = float(predictions_arr[0])
+        self.sitting = float(predictions_arr[1])
+        self.walking = float(predictions_arr[2])
+        self.running = float(predictions_arr[3])
+        self.bicycling = float(predictions_arr[4])
+        self.sleeping = float(predictions_arr[5])
+        self.driving_driver = float(predictions_arr[6])
+        self.driving_pass = float(predictions_arr[7])
+        self.exercise = float(predictions_arr[8])
+        self.shopping = float(predictions_arr[9])
+        self.strolling = float(predictions_arr[10])
+        self.stairs_up = float(predictions_arr[11])
+        self.stairs_down = float(predictions_arr[12])
+        self.standing = float(predictions_arr[13])
+        self.lab_work = float(predictions_arr[14])
+        self.in_class = float(predictions_arr[15])
+        self.in_meeting = float(predictions_arr[16])
+        self.cooking = float(predictions_arr[17])
+        self.drinking_alcohol = float(predictions_arr[18])
+        self.shower = float(predictions_arr[19])
+        self.cleaning = float(predictions_arr[20])
+        self.laundry = float(predictions_arr[21])
+        self.washing_dishes = float(predictions_arr[22])
+        self.watch_tv = float(predictions_arr[23])
+        self.surf_internet = float(predictions_arr[24])
+        self.singing = float(predictions_arr[25])
+        self.talking = float(predictions_arr[26])
+        self.computer_work = float(predictions_arr[27])
+        self.eating = float(predictions_arr[28])
+        self.toilet = float(predictions_arr[29])
+        self.grooming = float(predictions_arr[30])
+        self.dressing = float(predictions_arr[31])
+        self.with_coworker = float(predictions_arr[32])
+        self.with_friends = float(predictions_arr[33])
+        self.main_workplace = float(predictions_arr[34])
+        self.indoors = float(predictions_arr[35])
+        self.outdoors = float(predictions_arr[36])
+        self.in_car = float(predictions_arr[37])
+        self.on_bus = float(predictions_arr[38])
+        self.home = float(predictions_arr[39])
+        self.restaurant = float(predictions_arr[40])
+        self.at_party = float(predictions_arr[41])
+        self.at_bar = float(predictions_arr[42])
+        self.beach = float(predictions_arr[43])
+        self.at_gym = float(predictions_arr[44])
+        self.elevator = float(predictions_arr[45])
+        self.at_school = float(predictions_arr[46])
 
     def setAnomaly(self, b):
         self.anomaly = b

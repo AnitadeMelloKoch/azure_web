@@ -98,6 +98,8 @@ def energyband0(x, y, z):
     for x in range(len(PSD)):
         if(f[x] >= 0 and f[x] <= 0.5):
             energy = energy + PSD[x]
+    if energy == 0:
+        return 0
     return np.log(energy)
 
 # not working
@@ -108,6 +110,8 @@ def energyband1(x, y, z):
     for x in range(len(PSD)):
         if(f[x] > 0.5 and f[x] <= 1):
             energy = energy + PSD[x]
+    if energy == 0:
+        return 0
     return np.log(energy)
 
 # not working
@@ -118,6 +122,8 @@ def energyband2(x, y, z):
     for x in range(len(PSD)):
         if(f[x] > 1 and f[x] <= 3):
             energy = energy + PSD[x]
+    if energy == 0:
+        return 0
     return np.log(energy)
 
 # not working
@@ -128,6 +134,8 @@ def energyband3(x, y, z):
     for x in range(len(PSD)):
         if(f[x] > 3 and f[x] <= 5):
             energy = energy + PSD[x]
+    if energy == 0:
+        return 0
     return np.log(energy)
 
 # not working
@@ -138,6 +146,8 @@ def energyband4(x, y, z):
     for x in range(len(PSD)):
         if(f[x] > 5):
             energy = energy + PSD[x]
+    if energy == 0:
+        return 0
     return np.log(energy)
 
 # not working
@@ -150,6 +160,8 @@ def autocorr(x, y, z, timesteps):
     corr = np.correlate(mag, mag, mode='full')
     autocorr = corr[corr.size // 2:]
     lag0 = autocorr[0]
+    if lag0 == 0:
+        lag0 = 1
     for x in range(len(autocorr)):
         autocorr[x] = autocorr[x]/lag0
     found = False

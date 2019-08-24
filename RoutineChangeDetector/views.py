@@ -34,7 +34,8 @@ def user_data_list(request):
             return Response({'success':False}, status=status.HTTP_204_NO_CONTENT)
         uuid = recData[0]["uuid"]
         model_list = []
-        for data in recData:
+        for idx, data in enumerate(recData):
+            print("Entry", idx)
             model = UserData()
             model.setValues(data)
             srlzr = UserDataSerializer(model)
@@ -47,10 +48,12 @@ def user_data_list(request):
             else: 
                 return Response(srlzr.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         try:
+            print()
             UserData.objects.bulk_create(model_list)
             print("Success")
             return Response({'success':True}, status=status.HTTP_200_OK)
-        except:
+        except Exception as e:
+            print(e)
             return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
@@ -65,7 +68,7 @@ def predict_actions(request):
         if unpredicted_data_length == 0:
             return Response({'success': False}, status=status.HTTP_204_NO_CONTENT)
         predicted_data_qs = UserData.objects.filter(uuid=uuid, classified=True).order_by('timestamp')
-        predicted_data_length = min(predicted_data_qs.count(), 100)
+        predicted_data_length = min(predicted_data_qs.count(), 3*96)
 
         unpredicted_data_list = list(unpredicted_data_qs.values_list())
         predicted_data_list = list(predicted_data_qs.values_list()[:predicted_data_length])
@@ -136,7 +139,7 @@ def detect_anomalies(request):
         if undetected_data_length == 0:
             return Response({'success':False}, status=status.HTTP_204_NO_CONTENT)
         nonanomolous_data_qs = UserRoutine.objects.filter(uuid=uuid, anomaly=False)
-        if nonanomolous_data_qs.count() < 50: # ! 1344:
+        if nonanomolous_data_qs.count() < 1344:
             undetected_data_qs.update(anomaly=False)
             print("Not enough points for anomaly detection")
             return Response({'success':True, 'information':'Not enough points for anomaly detection'}, status=status.HTTP_202_ACCEPTED)
@@ -158,21 +161,40 @@ def detect_anomalies(request):
         print("Update model with results")
         try:
             for idx, result in enumerate(anomaly_result):
-                undetected_data_qs[idx].update(anomaly=result)
+                if result == 1:
+                    model = UserRoutine.objects.get(routine_id=undetected_data_list[idx][0])
+                    model.anomaly=True
+                    model.save()
+                else:
+                    model = UserRoutine.objects.get(routine_id=undetected_data_list[idx][0])
+                    model.anomaly=False
+                    model.save()
 
             print('Success')
-            return Response({'success': True, 'anomaly': anomaly_result}, status=status.HTTP_200_OK)
+            return Response({'success': True}, status=status.HTTP_200_OK)
 
-        except:
-            return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except Exception as e:
+            print(e)
+            return Response({'success': False, 'error': e}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def get_user_anomalies(request):
+    """
+    GET: Gets anomaly details from index [start, end). start inclusive, end exclusive. If no start, start = 0, if no end, end = number of records in database 
+    """
     if request.method == 'GET':
         uuid = request.query_params.get('uuid', None)
-        start = request.query_params.get('start', None)
-        end = request.query_params.get('end', None)
-        print(uuid)
+        start = int(request.query_params.get('start', 0))
+        end = int(request.query_params.get('end', -1))
+        # print(uuid, type(uuid))
+        # print(start, type(start))
+        if end == -1:
+            end = int(UserRoutine.objects.filter(uuid=uuid).count())
+        # print(end, type(end))
+        
+        if end < start:
+            return Response({'success': False, 'message': 'End cannot be before start.'}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
         print("Getting list from database")
         data_qs = UserRoutine.objects.filter(uuid=uuid).order_by('-timestamp')
         wanted_data_qs = data_qs[start:end]
@@ -198,11 +220,10 @@ def get_user_anomalies(request):
         
         activity_label_list = []
         for idx, activities in enumerate(wanted_data):
-            activity_label_list.append(getLabelsofMax(activities, labels))
+            a_arr = np.asarray(activities)
+            activity_label_list.append(getLabelsofMax(a_arr, labels))
 
-        anomaly = bool(anomaly)
-
-        return Response({'success': True, 'activity_labels': activity_label_list, 'timestamps':timestamps, 'anomaly':anomaly}, status=status.HTTP_200_OK)
+        return Response({'success': True, 'activity_labels': activity_label_list, 'timestamps':timestamps, 'anomaly':anomaly, 'length': len(activity_label_list)}, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def get_user_record_num(request):
