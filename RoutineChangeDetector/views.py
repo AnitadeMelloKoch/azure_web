@@ -270,5 +270,7 @@ def update_routine_info(request):
         except:
             return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+
 def getLabelsofMax(arr1, arr2): 
     return arr2[arr1>0.9]
