@@ -258,5 +258,17 @@ def get_routine_info(request):
         else:
             return Response({'success': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+@api_view(['POST'])
+def update_routine_info(request):
+    if request.method == 'POST':
+        uuid = request.query_params.get('uuid')
+        timestamp = request.query_params.get('timestamp')
+        new_data = request.query_params.get('data')
+        try:
+            UserRoutine.updatePredictions(str(uuid)+str(timestamp), new_data)
+            return Response({'success': True}, status=status.HTTP_200_OK)
+        except:
+            return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 def getLabelsofMax(arr1, arr2): 
     return arr2[arr1>0.9]
