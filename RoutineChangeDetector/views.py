@@ -271,7 +271,18 @@ def update_routine_info(request):
         except:
             return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-# @
+@api_view(['POST'])
+def set_anomaly(request):
+    if request.method == 'POST':
+        uuid = request.query_params.get('uuid')
+        timestamp = request.query_params.get('timestamp')
+        new_anomaly = request.query_params.get('new_anomaly')
+        try:
+            old_anomaly = UserRoutine.objects.filter(routine_id=str(uuid)+str(timestamp))
+            old_anomaly.set_anomaly(new_anomaly)
+            return Response({'success': True}, status=status.HTTP_200_OK)
+        except:
+            return Response({'success': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 def getLabelsofMax(arr1, arr2): 
     return arr2[arr1>0.9]
