@@ -231,8 +231,32 @@ def get_user_record_num(request):
         uuid = request.query_params.get('uuid', None)
         data_qs = UserRoutine.objects.filter(uuid=uuid)
         num_record = data_qs.count()
+        
 
         return Response({'success':True, 'num_records':num_record}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_routine_info(request):
+    if request.method == 'GET':
+        uuid = request.query_params.get('uuid', None)
+        timestamp = request.query_params.get('timestamp', None)
+        data_qs = UserRoutine.objects.filter(routine_id=(uuid+str(timestamp)))
+        data = list(data_qs)[7:]
+
+        labels = np.asarray(["lying down","sitting","walking","running","bicycling","sleeping","driving (driver)","driving (pass)","exercise","shopping", "strolling", \
+            "stairs (up)","stairs (down)","standing","lab work","in class","in meeting","cooking","drinking alcohol","shower","cleaning","laundry","washing dishes",\
+                "watching TV","surfing Internet","singing","talking","computer work","eating","toilet","grooming","dressing","with coworker", "with friends",\
+                    "main workplace","indoors","outdoors","in car","on bus","home","restaurant","at a party","at a bar",'beach','at the gym',"elevator","at school"])
+
+        list_labels = getLabelsofMax(data, labels)
+        a_srlzr = UserRoutineSerializer(data_qs)
+        if a_srlzr.is_valid:
+            try:
+                return Response({'success': True, 'labels': list_labels, 'data': a_srlzr.data}, status=status.HTTP_200_OK)
+            except:
+                return Response({'success': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response({'success': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 def getLabelsofMax(arr1, arr2): 
     return arr2[arr1>0.9]
