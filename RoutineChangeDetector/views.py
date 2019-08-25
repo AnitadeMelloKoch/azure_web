@@ -265,12 +265,13 @@ def update_routine_info(request):
         timestamp = request.query_params.get('timestamp')
         new_data = request.query_params.get('data')
         try:
-            UserRoutine.updatePredictions(str(uuid)+str(timestamp), new_data)
+            old_data_qs = UserData.objects.filter(routine_id=str(uuid)+str(timestamp))
+            old_data_qs.updatePredictions(str(uuid)+str(timestamp), new_data)
             return Response({'success': True}, status=status.HTTP_200_OK)
         except:
             return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
+# @
 
 def getLabelsofMax(arr1, arr2): 
     return arr2[arr1>0.9]
