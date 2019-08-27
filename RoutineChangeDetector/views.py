@@ -48,7 +48,6 @@ def user_data_list(request):
             else: 
                 return Response(srlzr.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         try:
-            print()
             UserData.objects.bulk_create(model_list)
             print("Success")
             return Response({'success':True}, status=status.HTTP_200_OK)
@@ -109,7 +108,6 @@ def predict_actions(request):
             day = float(dt.strftime("%w"))
             hour = float(dt.strftime("%-H"))
             minute = float(dt.strftime("%-M"))
-            # print(uuid, timestamp, d_model.timestamp, day, hour, minute)
             r_model.initialise(uuid, timestamp, d_model, day, hour, minute)
             r_model.updatePredictions(prediction)
             r_srlzr = UserRoutineSerializer(r_model)
@@ -186,11 +184,8 @@ def get_user_anomalies(request):
         uuid = request.query_params.get('uuid', None)
         start = int(request.query_params.get('start', 0))
         end = int(request.query_params.get('end', -1))
-        # print(uuid, type(uuid))
-        # print(start, type(start))
         if end == -1:
             end = int(UserRoutine.objects.filter(uuid=uuid).count())
-        # print(end, type(end))
         
         if end < start:
             return Response({'success': False, 'message': 'End cannot be before start.'}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
@@ -235,54 +230,64 @@ def get_user_record_num(request):
 
         return Response({'success':True, 'num_records':num_record}, status=status.HTTP_200_OK)
 
-@api_view(['GET'])
-def get_routine_info(request):
-    if request.method == 'GET':
-        uuid = request.query_params.get('uuid', None)
-        timestamp = request.query_params.get('timestamp', None)
-        data_qs = UserRoutine.objects.filter(routine_id=(uuid+str(timestamp)))
-        data = list(data_qs)[7:]
+# @api_view(['GET'])
+# def get_routine_info(request):
+#     if request.method == 'GET':
+#         uuid = request.query_params.get('uuid', None)
+#         timestamp = request.query_params.get('timestamp', None)
+#         data_qs = UserRoutine.objects.filter(routine_id=(uuid+str(timestamp)))
+#         data = list(data_qs)[7:]
 
-        labels = np.asarray(["lying down","sitting","walking","running","bicycling","sleeping","driving (driver)","driving (pass)","exercise","shopping", "strolling", \
-            "stairs (up)","stairs (down)","standing","lab work","in class","in meeting","cooking","drinking alcohol","shower","cleaning","laundry","washing dishes",\
-                "watching TV","surfing Internet","singing","talking","computer work","eating","toilet","grooming","dressing","with coworker", "with friends",\
-                    "main workplace","indoors","outdoors","in car","on bus","home","restaurant","at a party","at a bar",'beach','at the gym',"elevator","at school"])
+#         labels = np.asarray(["lying down","sitting","walking","running","bicycling","sleeping","driving (driver)","driving (pass)","exercise","shopping", "strolling", \
+#             "stairs (up)","stairs (down)","standing","lab work","in class","in meeting","cooking","drinking alcohol","shower","cleaning","laundry","washing dishes",\
+#                 "watching TV","surfing Internet","singing","talking","computer work","eating","toilet","grooming","dressing","with coworker", "with friends",\
+#                     "main workplace","indoors","outdoors","in car","on bus","home","restaurant","at a party","at a bar",'beach','at the gym',"elevator","at school"])
 
-        list_labels = getLabelsofMax(data, labels)
-        a_srlzr = UserRoutineSerializer(data_qs)
-        if a_srlzr.is_valid:
-            try:
-                return Response({'success': True, 'labels': list_labels, 'data': a_srlzr.data}, status=status.HTTP_200_OK)
-            except:
-                return Response({'success': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        else:
-            return Response({'success': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#         list_labels = getLabelsofMax(data, labels)
+#         a_srlzr = UserRoutineSerializer(data_qs)
+#         if a_srlzr.is_valid:
+#             try:
+#                 return Response({'success': True, 'labels': list_labels, 'data': a_srlzr.data}, status=status.HTTP_200_OK)
+#             except:
+#                 return Response({'success': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+#         else:
+#             return Response({'success': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
-def update_routine_info(request):
+def update_classification_info(request):
     if request.method == 'POST':
-        uuid = request.query_params.get('uuid')
-        timestamp = request.query_params.get('timestamp')
-        new_data = request.query_params.get('data')
+        print("Updating Record")
+        uuid = request.data["uuid"]
+        timestampStr = request.data["timestamp"]
+        timestamp = float(timestampStr)
+        new_activity_arr = json.loads(request.data["activityArr"])
+        new_anomaly = True if request.data["anomaly"] == 'true' else False
         try:
-            old_data_qs = UserData.objects.filter(routine_id=str(uuid)+str(timestamp))
-            old_data_qs.updatePredictions(str(uuid)+str(timestamp), new_data)
-            return Response({'success': True}, status=status.HTTP_200_OK)
-        except:
+            model = UserRoutine.objects.get(routine_id=uuid+str(timestampStr))
+            model.updatePredictions(new_activity_arr)
+            model.setAnomaly(new_anomaly)
+            if UserRoutineSerializer(model).is_valid:
+                model.save()
+                print("Updated Entry")
+                return Response({'success': True}, status=status.HTTP_200_OK)
+            else:
+                return Response({'success':False}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        except Exception as e:
+            print(e)
             return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-@api_view(['POST'])
-def set_anomaly(request):
-    if request.method == 'POST':
-        uuid = request.query_params.get('uuid')
-        timestamp = request.query_params.get('timestamp')
-        new_anomaly = request.query_params.get('new_anomaly')
-        try:
-            old_anomaly = UserRoutine.objects.filter(routine_id=str(uuid)+str(timestamp))
-            old_anomaly.set_anomaly(new_anomaly)
-            return Response({'success': True}, status=status.HTTP_200_OK)
-        except:
-            return Response({'success': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# @api_view(['POST'])
+# def set_anomaly(request):
+#     if request.method == 'POST':
+#         uuid = request.query_params.get('uuid')
+#         timestamp = request.query_params.get('timestamp')
+#         new_anomaly = request.query_params.get('new_anomaly')
+#         try:
+#             old_anomaly = UserRoutine.objects.filter(routine_id=str(uuid)+str(timestamp))
+#             old_anomaly.set_anomaly(new_anomaly)
+#             return Response({'success': True}, status=status.HTTP_200_OK)
+#         except:
+#             return Response({'success': False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 def getLabelsofMax(arr1, arr2): 
     return arr2[arr1>0.9]
