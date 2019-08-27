@@ -56,6 +56,7 @@ def user_data_list(request):
             return Response({'success':False}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+
 @api_view(['GET'])
 def predict_actions(request):
     if request.method == 'GET':
