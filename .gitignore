@@ -577,3 +577,5 @@ typings/
 .history
 
 # End of https://www.gitignore.io/api/git,node,latex,python,django,visualstudiocode
+
+fakedata/
