@@ -77,18 +77,24 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'sql_server.pyodbc',
+#         'NAME': 'rc_userDB',
+#         'USER': 'sqlserveradmin@routinechangedetectorsql',
+#         'PASSWORD': 'RCDA97nk#',
+#         'HOST': 'routinechangedetectorsql.database.windows.net',
+#         'PORT': '1433',
+#         'OPTIONS': {
+#             'driver': 'ODBC Driver 17 for SQL Server',
+#             'encrypt': True,
+#         }
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'rc_userDB',
-        'USER': 'sqlserveradmin@routinechangedetectorsql',
-        'PASSWORD': 'RCDA97nk#',
-        'HOST': 'routinechangedetectorsql.database.windows.net',
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-            'encrypt': True,
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
     }
 }
 

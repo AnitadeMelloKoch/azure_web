@@ -8,7 +8,7 @@ class UserDataSerializer(serializers.ModelSerializer):
         model = UserData
         fields = '__all__'
 
-class UserRoutineSerializer(serializers.HyperlinkedModelSerializer): 
+class UserRoutineSerializer(serializers.ModelSerializer): 
     class Meta:
         model = UserRoutine
         fields = '__all__'

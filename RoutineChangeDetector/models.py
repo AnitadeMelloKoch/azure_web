@@ -453,7 +453,6 @@ class UserData(models.Model):
             self.proc_gyro_3d_ro_yz = 0
 
 
-
         # * Magnetometer Fields
         calc_mag = False
         for idx in range(len(magnetometer["x"])):
@@ -461,8 +460,6 @@ class UserData(models.Model):
                 calc_mag = True
                 break   
         if calc_mag:
-
-
             # ! Expanding the magnetometer to the same dimensions as the other two sensors.
             new_magn_dict = {
                 "x": [],
@@ -493,7 +490,6 @@ class UserData(models.Model):
                     new_magn_dict["y"].append(magn_y)
                     new_magn_dict["z"].append(magn_z)
             magnetometer = new_magn_dict
-
             self.raw_magnet_magnitude_stats_mean = float(mean_mag(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
             self.raw_magnet_magnitude_stats_std = float(std_mag(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
             self.raw_magnet_magnitude_stats_moment3 = float(moment3(magnetometer["x"], magnetometer["y"], magnetometer["z"]))
@@ -563,7 +559,6 @@ class UserData(models.Model):
             self.raw_magnet_avr_cosine_similarity_lag_range4 = 0
 
 
-
         # * Watch Fields
         self.watch_acc_magnitude_stats_mean = 0
         self.watch_acc_magnitude_stats_std = 0
@@ -622,7 +617,6 @@ class UserData(models.Model):
         self.watch_heading_entropy_8bins = 0
 
 
-
         # * Location Fields
         if not len(location) < 2:
             num_updates, log_lat_range, log_long_range, \
@@ -666,36 +660,66 @@ class UserData(models.Model):
             self.location_quick_features_mean_abs_lat_deriv = 0
             self.location_quick_features_mean_abs_long_deriv = 0
 
-
+        
         # * Audio Fields
-        self.audio_naive_mfcc0_mean = float(numpy.nanmean(mfcc["mfcc0"]))
-        self.audio_naive_mfcc1_mean = float(numpy.nanmean(mfcc["mfcc1"]))
-        self.audio_naive_mfcc2_mean = float(numpy.nanmean(mfcc["mfcc2"]))
-        self.audio_naive_mfcc3_mean = float(numpy.nanmean(mfcc["mfcc3"]))
-        self.audio_naive_mfcc4_mean = float(numpy.nanmean(mfcc["mfcc4"]))
-        self.audio_naive_mfcc5_mean = float(numpy.nanmean(mfcc["mfcc5"]))
-        self.audio_naive_mfcc6_mean = float(numpy.nanmean(mfcc["mfcc6"]))
-        self.audio_naive_mfcc7_mean = float(numpy.nanmean(mfcc["mfcc7"]))
-        self.audio_naive_mfcc8_mean = float(numpy.nanmean(mfcc["mfcc8"]))
-        self.audio_naive_mfcc9_mean = float(numpy.nanmean(mfcc["mfcc9"]))
-        self.audio_naive_mfcc10_mean = float(numpy.nanmean(mfcc["mfcc10"]))
-        self.audio_naive_mfcc11_mean = float(numpy.nanmean(mfcc["mfcc11"]))
-        self.audio_naive_mfcc12_mean = float(numpy.nanmean(mfcc["mfcc12"]))
-        self.audio_naive_mfcc0_std = float(numpy.nanstd(mfcc["mfcc0"]))
-        self.audio_naive_mfcc1_std = float(numpy.nanstd(mfcc["mfcc1"]))
-        self.audio_naive_mfcc2_std = float(numpy.nanstd(mfcc["mfcc2"]))
-        self.audio_naive_mfcc3_std = float(numpy.nanstd(mfcc["mfcc3"]))
-        self.audio_naive_mfcc4_std = float(numpy.nanstd(mfcc["mfcc4"]))
-        self.audio_naive_mfcc5_std = float(numpy.nanstd(mfcc["mfcc5"]))
-        self.audio_naive_mfcc6_std = float(numpy.nanstd(mfcc["mfcc6"]))
-        self.audio_naive_mfcc7_std = float(numpy.nanstd(mfcc["mfcc7"]))
-        self.audio_naive_mfcc8_std = float(numpy.nanstd(mfcc["mfcc8"]))
-        self.audio_naive_mfcc9_std = float(numpy.nanstd(mfcc["mfcc9"]))
-        self.audio_naive_mfcc10_std = float(numpy.nanstd(mfcc["mfcc10"]))
-        self.audio_naive_mfcc11_std = float(numpy.nanstd(mfcc["mfcc11"]))
-        self.audio_naive_mfcc12_std = float(numpy.nanstd(mfcc["mfcc12"]))
-        self.audio_properties_max_abs_value = float(-mfcc["normalizationMult"])
-        self.audio_properties_normalization_multiplier = float(mfcc["normalizationMult"])
+        if not len(mfcc["mfcc0"]) == 0:
+            self.audio_naive_mfcc0_mean = float(numpy.nanmean(mfcc["mfcc0"]))
+            self.audio_naive_mfcc1_mean = float(numpy.nanmean(mfcc["mfcc1"]))
+            self.audio_naive_mfcc2_mean = float(numpy.nanmean(mfcc["mfcc2"]))
+            self.audio_naive_mfcc3_mean = float(numpy.nanmean(mfcc["mfcc3"]))
+            self.audio_naive_mfcc4_mean = float(numpy.nanmean(mfcc["mfcc4"]))
+            self.audio_naive_mfcc5_mean = float(numpy.nanmean(mfcc["mfcc5"]))
+            self.audio_naive_mfcc6_mean = float(numpy.nanmean(mfcc["mfcc6"]))
+            self.audio_naive_mfcc7_mean = float(numpy.nanmean(mfcc["mfcc7"]))
+            self.audio_naive_mfcc8_mean = float(numpy.nanmean(mfcc["mfcc8"]))
+            self.audio_naive_mfcc9_mean = float(numpy.nanmean(mfcc["mfcc9"]))
+            self.audio_naive_mfcc10_mean = float(numpy.nanmean(mfcc["mfcc10"]))
+            self.audio_naive_mfcc11_mean = float(numpy.nanmean(mfcc["mfcc11"]))
+            self.audio_naive_mfcc12_mean = float(numpy.nanmean(mfcc["mfcc12"]))
+            self.audio_naive_mfcc0_std = float(numpy.nanstd(mfcc["mfcc0"]))
+            self.audio_naive_mfcc1_std = float(numpy.nanstd(mfcc["mfcc1"]))
+            self.audio_naive_mfcc2_std = float(numpy.nanstd(mfcc["mfcc2"]))
+            self.audio_naive_mfcc3_std = float(numpy.nanstd(mfcc["mfcc3"]))
+            self.audio_naive_mfcc4_std = float(numpy.nanstd(mfcc["mfcc4"]))
+            self.audio_naive_mfcc5_std = float(numpy.nanstd(mfcc["mfcc5"]))
+            self.audio_naive_mfcc6_std = float(numpy.nanstd(mfcc["mfcc6"]))
+            self.audio_naive_mfcc7_std = float(numpy.nanstd(mfcc["mfcc7"]))
+            self.audio_naive_mfcc8_std = float(numpy.nanstd(mfcc["mfcc8"]))
+            self.audio_naive_mfcc9_std = float(numpy.nanstd(mfcc["mfcc9"]))
+            self.audio_naive_mfcc10_std = float(numpy.nanstd(mfcc["mfcc10"]))
+            self.audio_naive_mfcc11_std = float(numpy.nanstd(mfcc["mfcc11"]))
+            self.audio_naive_mfcc12_std = float(numpy.nanstd(mfcc["mfcc12"]))
+            self.audio_properties_max_abs_value = float(-mfcc["normalizationMult"])
+            self.audio_properties_normalization_multiplier = float(mfcc["normalizationMult"])
+        else: 
+            self.audio_naive_mfcc0_mean = 0
+            self.audio_naive_mfcc1_mean = 0
+            self.audio_naive_mfcc2_mean = 0
+            self.audio_naive_mfcc3_mean = 0
+            self.audio_naive_mfcc4_mean = 0
+            self.audio_naive_mfcc5_mean = 0
+            self.audio_naive_mfcc6_mean = 0
+            self.audio_naive_mfcc7_mean = 0
+            self.audio_naive_mfcc8_mean = 0
+            self.audio_naive_mfcc9_mean = 0
+            self.audio_naive_mfcc10_mean = 0
+            self.audio_naive_mfcc11_mean = 0
+            self.audio_naive_mfcc12_mean = 0
+            self.audio_naive_mfcc0_std = 0
+            self.audio_naive_mfcc1_std = 0
+            self.audio_naive_mfcc2_std = 0
+            self.audio_naive_mfcc3_std = 0
+            self.audio_naive_mfcc4_std = 0
+            self.audio_naive_mfcc5_std = 0
+            self.audio_naive_mfcc6_std = 0
+            self.audio_naive_mfcc7_std = 0
+            self.audio_naive_mfcc8_std = 0
+            self.audio_naive_mfcc9_std = 0
+            self.audio_naive_mfcc10_std = 0
+            self.audio_naive_mfcc11_std = 0
+            self.audio_naive_mfcc12_std = 0
+            self.audio_properties_max_abs_value = 0
+            self.audio_properties_normalization_multiplier = 0
 
         # * App State
         if app_state == "ACTIVE":
@@ -912,7 +936,7 @@ class UserRoutine(models.Model):
         self.elevator = 0
         self.at_school = 0
         self.anomaly = None
-        print("Created Routine Model")
+        print("Created Routine Model " + self.routine_id)
 
     def updatePredictions(self, predictions_arr):
         self.lying_down = float(predictions_arr[0])

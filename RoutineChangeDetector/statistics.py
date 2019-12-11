@@ -7,7 +7,6 @@ def mean_dir(x, y, z):
     x_mean = np.nanmean(x)
     y_mean = np.nanmean(y)
     z_mean = np.nanmean(z)
-
     return (x_mean, y_mean, z_mean)
 
 # working
@@ -15,7 +14,6 @@ def std_dev_dir(x, y, z):
     x_std = np.nanstd(x)
     y_std = np.nanstd(y)
     z_std = np.nanstd(z)
-
     return (x_std, y_std, z_std)
 
 # working
@@ -64,7 +62,7 @@ def valueEntropy(x, y, z):
     total = np.sum(hist)
     H = 0
     for x in range(len(hist)):
-        if not hist[x] == 0: 
+        if not hist[x] == 0 and not total == 0: 
             H = H - (hist[x]/total)*np.log((hist[x]/total))
     return H
 
@@ -74,7 +72,7 @@ def timeEntropy(x, y, z):
     total = np.sum(mag)
     S = 0
     for x in range(len(mag)):
-        if not mag[x] == 0: 
+        if not mag[x] == 0 and not total == 0: 
             S = S - (mag[x]/total)*np.log(mag[x]/total)
 
     return S
@@ -86,7 +84,7 @@ def spectral_entropy(x, y, z):
     total = np.sum(PSD)
     S = 0
     for x in range(len(PSD)):
-        if not PSD[x] == 0:
+        if not PSD[x] == 0 and not total == 0:
             S = S - (PSD[x]/total)*np.log(PSD[x]/total)
     return S
 
@@ -170,13 +168,15 @@ def autocorr(x, y, z, timesteps):
     maxVal = 0
     
     try:
-        while (not found):
+        while ((not found) and (index < len(autocorr))):
             if(previous > autocorr[index]):
                 previous = autocorr[index]
                 index += 1
             else:
                 maxVal = np.argmax(autocorr[index:])
                 found = True
+        if ((not found) and (index == len(autocorr - 1))):
+            return 0, 0
         period = (timesteps[index:][maxVal] - timesteps[0]) / 1000 # To convert to seconds from milliseconds
         return (period),(autocorr[index:][maxVal])
     except:
@@ -185,6 +185,12 @@ def autocorr(x, y, z, timesteps):
 # working
 def correlation_coeff(x, y, z):
     corr_coeff = np.corrcoef([x,y,z])
+    if np.isnan(corr_coeff[1,0]):
+        corr_coeff[1,0] = 0
+    if np.isnan(corr_coeff[2,0]):
+        corr_coeff[2,0] = 0
+    if np.isnan(corr_coeff[1,2]):
+        corr_coeff[1,2] = 0
     return corr_coeff[1,0], corr_coeff[2, 0], corr_coeff[1,2]
 
 # working
@@ -198,52 +204,70 @@ def cos_similarity_0(x, y, z, timesteps):
         if(time >= 0 and time < 500):
             tot = tot + 1
             sim = sim + scipy.spatial.distance.cosine([x[x1], y[x1], z[x1]],[x[x2], y[x2], z[x2]])
+    if tot == 0:
+        return 0
     return 1 - sim/tot
 
 def cos_similarity_1(x, y, z, timesteps):
     sim = 0
     tot = 0
-    while(tot < 1000):
+    count = 0
+    while(tot < 1000 and count < 7000):
+        count += 1
         x1 = int(np.random.randint(low = 0, high = len(x)))
         x2 = int(np.random.randint(low = 0, high = len(x)))
         time = abs(timesteps[x1] - timesteps[x2])
         if(time >= 500 and time < 1000):
             tot = tot + 1
             sim = sim + scipy.spatial.distance.cosine([x[x1], y[x1], z[x1]],[x[x2], y[x2], z[x2]])
+    if tot == 0:
+        return 0
     return 1 - sim/tot
 
 def cos_similarity_2(x, y, z, timesteps):
     sim = 0
     tot = 0
-    while(tot < 1000):
+    count = 0
+    while(tot < 1000 and count < 7000):
+        count += 1
         x1 = int(np.random.randint(low = 0, high = len(x)))
         x2 = int(np.random.randint(low = 0, high = len(x)))
         time = abs(timesteps[x1] - timesteps[x2])
         if(time >= 1000 and time < 5000):
             tot = tot + 1
             sim = sim + scipy.spatial.distance.cosine([x[x1], y[x1], z[x1]],[x[x2], y[x2], z[x2]])
+    if tot == 0:
+        return 0
     return 1 - sim/tot
 
 def cos_similarity_3(x, y, z, timesteps):
     sim = 0
     tot = 0
-    while(tot < 1000):
+    count = 0
+    while(tot < 1000 and count < 7000):
+        count += 1
         x1 = int(np.random.randint(low = 0, high = len(x)))
         x2 = int(np.random.randint(low = 0, high = len(x)))
         time = abs(timesteps[x1] - timesteps[x2])
         if(time >= 5000 and time < 10000):
             tot = tot + 1
             sim = sim + scipy.spatial.distance.cosine([x[x1], y[x1], z[x1]],[x[x2], y[x2], z[x2]])
+    if tot == 0:
+        return 0
     return 1 - sim/tot
 
 def cos_similarity_4(x, y, z, timesteps):
     sim = 0
     tot = 0
-    while(tot < 1000):
+    count = 0
+    while(tot < 1000 and count < 7000):
+        count += 1
         x1 = int(np.random.randint(low = 0, high = len(x)))
         x2 = int(np.random.randint(low = 0, high = len(x)))
         time = abs(timesteps[x1] - timesteps[x2])
         if(time < 10000):
             tot = tot + 1
             sim = sim + scipy.spatial.distance.cosine([x[x1], y[x1], z[x1]],[x[x2], y[x2], z[x2]])
+    if tot == 0:
+        return 0
     return 1 - sim/tot

@@ -46,10 +46,10 @@ def _range(arr):
 
 def calcDiameter(lat_arr, long_arr):
     diam_arr = []
-    origin = (lat_arr[0], long_arr[0])
     for i in range(len(lat_arr)):
-        d = great_circle(origin, (lat_arr[i], long_arr[i])).m
-        diam_arr.append(d)
+        for j in range(len(lat_arr)):
+            d = great_circle((lat_arr[i], long_arr[i]), (lat_arr[j], long_arr[j])).m
+            diam_arr.append(d)
     return max(diam_arr)
 
 def get_quick_location_data(arr):
