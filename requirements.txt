@@ -19,7 +19,7 @@ Keras-Preprocessing==1.1.0
 lazy-object-proxy==1.4.1
 Markdown==3.1.1
 mccabe==0.6.1
-numpy==1.17.0
+numpy==1.22.0
 pandas==0.25.0
 protobuf==3.9.1
 pycodestyle==2.5.0
